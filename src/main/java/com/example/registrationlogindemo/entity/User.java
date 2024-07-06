@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="users")
-public class User
-{
+public class User implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -24,7 +27,13 @@ public class User
     private Long id;
 
     @Column(nullable=false)
+    private String userName;
+
+    @Column(nullable=false)
     private String name;
+
+    @Column(nullable=false)
+    private String lastName;
 
     @Column(nullable=false, unique=true)
     private String email;
@@ -32,11 +41,14 @@ public class User
     @Column(nullable=false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @Column(nullable=true)
+    private boolean active;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
-            name="users_roles",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+            name= "users_roles",
+            joinColumns={@JoinColumn(name= "USER_ID", referencedColumnName= "ID")},
+            inverseJoinColumns={@JoinColumn(name= "ROLE_ID", referencedColumnName= "ID")})
     private List<Role> roles = new ArrayList<>();
 
 }
