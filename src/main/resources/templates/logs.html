@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration and Login System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments/navbar.html :: navbar"></div>
+<form action="#" th:action="@{/logs}" method="get">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:value="${username}" />
+
+    <label for="startDate">Start Date:</label>
+    <input type="datetime-local" id="startDate" name="startDate" th:value="${startDate}" />
+
+    <label for="endDate">End Date:</label>
+    <input type="datetime-local" id="endDate" name="endDate" th:value="${endDate}" />
+
+    <button type="submit">Search</button>
+</form>
+<div class="row">
+    <h1> Logs </h1>
+</div>
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Method</th>
+        <th>Remote Address</th>
+        <th>Timestamp</th>
+        <th>URI</th>
+        <th>Username</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="log : ${logs}">
+        <td th:text="${log.id}">ID</td>
+        <td th:text="${log.method}">Method</td>
+        <td th:text="${log.remoteAddr}">Remote Address</td>
+        <td th:text="${log.timestamp}">Timestamp</td>
+        <td th:text="${log.uri}">URI</td>
+        <td th:text="${log.username}">Username</td>
+    </tr>
+    </tbody>
+</table>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
