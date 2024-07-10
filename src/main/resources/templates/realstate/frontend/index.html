@@ -1,0 +1,100 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{realstate/frontend/fragments/common-head :: commonHeadFragment}"></head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+<!--        <div th:if="${showSpinner}" id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">-->
+<!--            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">-->
+<!--                <span class="sr-only">Loading...</span>-->
+<!--            </div>-->
+<!--        </div>-->
+        <!-- Spinner End -->
+        <!-- Navbar Start -->
+        <div th:insert="~{realstate/frontend/fragments/header-navbar :: header}"></div>
+        <!-- Navbar End -->
+        <!-- Header Start -->
+        <div class="container-fluid header bg-white p-0">
+            <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6 p-5 mt-lg-5">
+                    <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Home</span> To Live With Your Family</h1>
+                    <p class="animated fadeIn mb-4 pb-2" th:text="${description} ?: 'Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.'">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                    <a th:href="@{/get-started}" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
+                </div>
+                <div class="col-md-6 animated fadeIn">
+                    <div class="owl-carousel header-carousel">
+                        <div class="owl-carousel-item" th:each="image : ${carouselImages}">
+                            <img class="img-fluid" th:src="@{'/realstate/frontend/images/' + ${image}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+        <!-- Search Start -->
+            <div th:replace="~{realstate/frontend/fragments/common-search-bar :: searchBarDiv}"></div>
+            <!-- Este contenido será reemplazado por el contenido del fragmento 'reusableDiv' -->
+        <!-- Search End -->
+        <!-- Category Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="mb-3">Property Types</h1>
+                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                </div>
+                <div class="row g-4">
+                    <div th:each="category : ${categories}" class="col-lg-3 col-sm-6 wow fadeInUp" th:data-wow-delay="${category.delay}">
+                        <a th:href="@{/search-property(categoryType=${category.type})}" class="cat-item d-block bg-light text-center rounded p-3">
+                            <div class="rounded p-4">
+                                <div class="icon mb-3">
+                                    <img th:src="@{|/realstate/frontend/images/${category.icon}|}" alt="Icon" class="img-fluid">
+                                </div>
+                                <h6 th:text="${category.name}">Category Name</h6>
+                                <span th:text="${category.count} + ' Properties'">123 Properties</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Category End -->
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                            <img th:src="@{/realstate/frontend/images/about.jpg}" alt="About Us" class="img-fluid w-100">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="mb-4" th:text="${aboutTitle} ?: '#1 Place To Find The Perfect Property'">#1 Place To Find The Perfect Property</h1>
+                        <p class="mb-4" th:text="${aboutDescription} ?: 'Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet'">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Tempor erat elitr rebum at clita</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Aliqu diam amet diam et eos</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Clita duo justo magna dolore erat amet</p>
+                        <a th:href="@{/read-more}" class="btn btn-primary py-3 px-5 mt-3">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+        <!-- Property List Start -->
+        <div th:replace="~{realstate/frontend/fragments/common-property-list :: propertyListDiv}"></div>
+        <!-- Property List End -->
+        <!-- Call to Action Start -->
+        <div th:replace="~{realstate/frontend/fragments/common-call-to-action :: callToActionFragment}"></div>
+        <!-- Call to Action End -->
+        <!-- Footer Start -->
+        <div th:replace="~{realstate/frontend/fragments/common-footer :: commonFooterDiv}"></div>
+        <!-- Footer End -->
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <th:block th:replace="~{realstate/frontend/fragments/common-scripts :: commonScripts}"></th:block>
+
+</body>
+
+</html>

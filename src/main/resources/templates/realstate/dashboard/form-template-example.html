@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf Form Example</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h2 class="my-4">Form Example</h2>
+    <!--/*@thymesVar id="formData" type="com.ilimitech.webapp.realstate.entity.FormData"*/-->
+    <form th:action="@{/submit-form}" th:object="${formData}" method="post">
+        <!-- Text input -->
+        <div class="mb-3">
+            <label for="textInput" class="form-label">Text Input</label>
+            <input type="text" id="textInput" class="form-control" th:field="*{textInput}" placeholder="Enter text">
+        </div>
+
+        <!-- Password input -->
+        <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password Input</label>
+            <input type="password" id="passwordInput" class="form-control" th:field="*{passwordInput}" placeholder="Enter password">
+        </div>
+
+        <!-- Textarea -->
+        <div class="mb-3">
+            <label for="textareaInput" class="form-label">Textarea</label>
+            <textarea id="textareaInput" class="form-control" rows="3" th:field="*{textareaInput}"></textarea>
+        </div>
+
+        <!-- Select -->
+        <div class="mb-3">
+            <label for="selectInput" class="form-label">Select</label>
+            <select id="selectInput" class="form-select" th:field="*{selectInput}">
+                <option th:each="option : ${selectOptions}" th:value="${option}" th:text="${option}"></option>
+            </select>
+        </div>
+
+        <!-- Radio buttons -->
+        <div class="mb-3">
+            <label class="form-label">Radio Buttons</label>
+            <div th:each="option : ${radioOptions}">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{radioInput}" th:value="${option}" th:id="${'radio_' + option}">
+                    <label class="form-check-label" th:for="${'radio_' + option}" th:text="${option}"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkboxes -->
+        <div class="mb-3">
+            <label class="form-label">Checkboxes</label>
+            <div th:each="option : ${checkboxOptions}">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{checkboxInput}" th:value="${option}" th:id="${'checkbox_' + option}">
+                    <label class="form-check-label" th:for="${'checkbox_' + option}" th:text="${option}"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Date input -->
+        <div class="mb-3">
+            <label for="dateInput" class="form-label">Date Input</label>
+            <input type="date" id="dateInput" class="form-control" th:field="*{dateInput}">
+        </div>
+
+        <!-- File input -->
+        <div class="mb-3">
+            <label for="fileInput" class="form-label">File Input</label>
+            <input type="file" id="fileInput" class="form-control" th:field="*{fileInput}">
+        </div>
+
+        <!-- Submit button -->
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Publicar Tweet</title>
+</head>
+<body>
+<h1>Publicar Tweet</h1>
+<form action="#" th:action="@{/tweet}" method="post">
+    <textarea name="tweet" rows="4" cols="50" placeholder="Escribe tu tweet aquí..."></textarea><br>
+    <button type="submit">Publicar</button>
+</form>
+<p th:text="${message}"></p>
+</body>
+</html>

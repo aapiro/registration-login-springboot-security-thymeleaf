@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="propertyListDiv" class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-0 gx-5 align-items-end">
+            <div class="col-lg-6">
+                <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                    <h1 class="mb-3">Lista de propiedades</h1>
+                    <p>Puedes listar por favoritos, alquiler y venta.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary active" data-bs-toggle="pill" th:href="@{/featured}">Favoritos</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary" data-bs-toggle="pill" th:href="@{/for-sell}">Para Comprar</a>
+                    </li>
+                    <li class="nav-item me-0">
+                        <a class="btn btn-outline-primary" data-bs-toggle="pill" th:href="@{/for-rent}">Para Alquilar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <!--/*@thymesVar id="properties" type="com.ilimitech.webapp.realstate.frontend.bff.PropertyListFrontResponse"*/-->
+            <div th:each="property, iterStat : ${properties}"
+                 th:id="${'tab-' + iterStat.index}"
+                 class="tab-pane fade show p-0"
+                 th:classappend="${iterStat.first} ? 'active'">
+                <div class="row g-4">
+                    <div th:each="property : ${properties}" class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a th:href="@{/property/{id}(id=${property.id})}">
+                                    <img th:src="@{{imageUrl}(imageUrl=${property.imageUrl})}" alt="Imagen del Producto" class="img-fluid">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3" th:text="${property.status}">For Sell</div>
+                                <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3" th:text="${property.type}">Apartment</div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                <h5 class="text-primary mb-3" th:text="${'$' + property.price}">$12,345</h5>
+                                <a th:href="@{/property-details(id=${property.id})}" class="d-block h5 mb-2" th:text="${property.title}">Golden Urban House For Sell</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i><span th:text="${property.address}">123 Street, New York, USA</span></p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i><span th:text="${property.plotArea} + ' Sqft'">1000 Sqft</span></small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i><span th:text="${property.numBedrooms}">3 Bed</span></small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i><span th:text="${property.numBathrooms}">2 Bath</span></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="btn btn-primary py-3 px-5" th:href="@{/browse-more}">Browse More Property</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

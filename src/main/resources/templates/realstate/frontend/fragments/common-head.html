@@ -1,0 +1,33 @@
+<!-- src/main/resources/templates/fragments.html -->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="commonHeadFragment">
+        <meta charset="utf-8">
+        <title th:text="${pageTitle} ?: 'Devfay - Real Estate HTML Template'">Devfay - Real Estate HTML Template</title>
+        <meta th:attr="content=${viewportContent ?: 'width=device-width, initial-scale=1.0'}" name="viewport">
+        <meta th:attr="content=${keywords}" name="keywords">
+        <meta th:attr="content=${description}" name="description">
+
+        <!-- Favicon -->
+        <link th:href="@{/templates/realstate/frontend/images/favicon.ico}" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link th:href="@{/realstate/frontend/lib/animate/animate.min.css}" rel="stylesheet">
+        <link th:href="@{/realstate/frontend/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link th:href="@{/realstate/frontend/css/bootstrap.min.css}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link th:href="@{/realstate/frontend/css/style.css}" rel="stylesheet">
+    </head>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<th:block th:fragment="commonScripts">
+
+    <!-- JavaScript Libraries -->
+    <script th:src="@{https://code.jquery.com/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/realstate/frontend/lib/wow/wow.min.js}"></script>
+    <script th:src="@{/realstate/frontend/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/realstate/frontend/lib/waypoints/waypoints.min.js}"></script>
+    <script th:src="@{/realstate/frontend/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+    <!-- Template Javascript -->
+    <script th:src="@{/realstate/frontend/js/main.js}"></script>
+
+</th:block>
+</body>
+</html>

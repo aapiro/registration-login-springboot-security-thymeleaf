@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   sql:
     init:
@@ -16,12 +18,19 @@ spring:
         lob:
         non_contextual_creation: true
     show-sql: true
-
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+  thymeleaf:
+    cache: false
+    reactive:
+      max-chunk-size: 8192
+    mode: HTML
+    suffix: .html
 # Configuración adicional (opcional)
-server:
-  port: 8080
-
 logging:
   level:
     root: INFO
+
     org.springframework.web: DEBUG

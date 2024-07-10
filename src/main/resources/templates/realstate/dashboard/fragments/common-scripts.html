@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<th:block th:fragment="commonScripts">
+
+    <!-- plugins:js -->
+    <script th:src="@{/realstate/dashboard/vendors/js/vendor.bundle.base.js}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script th:src="@{/realstate/dashboard/vendors/chart.js/Chart.min.js}"></script>
+    <script th:src="@{/realstate/dashboard/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
+    <script th:src="@{/realstate/dashboard/vendors/progressbar.js/progressbar.min.js}"></script>
+
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script th:src="@{/realstate/dashboard/js/off-canvas.js}"></script>
+    <script th:src="@{/realstate/dashboard/js/hoverable-collapse.js}"></script>
+    <script th:src="@{/realstate/dashboard/js/template.js}"></script>
+    <script th:src="@{/realstate/dashboard/js/settings.js}"></script>
+    <script th:src="@{/realstate/dashboard/js/todolist.js}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script th:src="@{/realstate/dashboard/js/dashboard.js}"></script>
+    <script th:src="@{/realstate/dashboard/js/Chart.roundedBarCharts.js}"></script>
+    <!-- End custom js for this page-->
+</th:block>
+</body>
+</html>

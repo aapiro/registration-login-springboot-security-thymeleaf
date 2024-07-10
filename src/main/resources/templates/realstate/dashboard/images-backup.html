@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>Spring Boot Image Upload example</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link th:rel="stylesheet" th:href="@{/assets/dropzonejs/dropzone.css}"/>
+  <link th:rel="stylesheet" th:href="@{/assets/toastr/toastr.min.css}"/>
+
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header"></div>-->
+
+<div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
+  <div id="dropzone">
+    <form th:action="${imageServerUrl} + '/upload/user/' + ${userId} + '/item/' + ${itemId}" class="dropzone needsclick" id="demo-upload">
+      <div class="dz-message needsclick">
+        <button type="button" class="dz-button">Drop images here or click to upload (max size 5mb).</button>
+        <br/>
+      </div>
+    </form>
+  </div>
+
+  <h2 class="text-center">List of Images</h2>
+
+  <div id="imageTableContainer">
+    <table class="table table-hover">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">File Name</th>
+        <th scope="col">Link</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody id="imageTableBody">
+      <!-- La tabla se llenará dinámicamente mediante JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade text-center" id="confirmModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <span id="confirmText"></span>
+      </div>
+
+      <div class="modal-footer">
+        <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div th:replace="fragments/footer :: footer"></div>-->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/dropzonejs/dropzone.min.js}"></script>
+<script th:src="@{/assets/toastr/toastr.min.js}"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".btn-delete").on("click", function (e) {
+      e.preventDefault();
+      var link = $(this);
+
+      var fileName = link.attr("fileName");
+      $("#yesBtn").attr("href", link.attr("href"));
+      $("#confirmText").html("Do you want to delete the File: <strong>" + fileName + "</strong>?");
+      $("#confirmModal").modal();
+    });
+
+    var imageServerUrl = /*[[${imageServerUrl}]]*/ 'default_value';
+    var userId = /*[[${userId}]]*/ '1';
+    var itemId = /*[[${itemId}]]*/ '1';
+
+    // Función para obtener y renderizar las imágenes en la tabla
+    function refreshImageTable() {
+      $.ajax({
+        url: imageServerUrl + '/imagesAjax/user/' + userId + '/item/' + itemId,
+        method: 'GET',
+        success: function (images) {
+          var tableBody = '';
+
+          if (images.length > 0) {
+            images.forEach(image => {
+              tableBody += '<tr>';
+              tableBody += '<td><img src="' + imageServerUrl + image.url + '" alt="' + image.name + '" height="60px" /></td>';
+              tableBody += '<td>' + image.name + '</td>';
+              tableBody += '<td><a href="' + imageServerUrl + image.url + '">Download</a></td>';
+              tableBody += '<td><a href="' + imageServerUrl + '/images/delete/' + image.name + '" fileName="' + image.name + '" id="btnDelete" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
+              tableBody += '</tr>';
+            });
+          } else {
+            tableBody = '<tr><td colspan="4">No files found!</td></tr>';
+          }
+
+          $('#imageTableBody').html(tableBody);
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching images:', error);
+        }
+      });
+    }
+
+    refreshImageTable();
+
+    Dropzone.autoDiscover = false;
+
+    $("#demo-upload").dropzone({
+      success : function(file, response) {
+        toastr.success('File ' + file.name + ' uploaded successfully');
+        refreshImageTable();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

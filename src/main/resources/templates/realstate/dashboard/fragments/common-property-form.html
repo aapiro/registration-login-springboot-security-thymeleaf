@@ -1,0 +1,103 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="es" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div th:fragment="commonPropertyForm" class="row">-->
+<!--    <div class="col-12 grid-margin">-->
+<!--        <div class="card">-->
+<!--            <div class="card-body">-->
+<!--                <h4 class="card-title">Anuncio Particular</h4>-->
+<!--                &lt;!&ndash;/*@thymesVar id="property" type="com.ilimitech.webapp.realstate.frontend.entity.PropertyFrontendEntity"*/&ndash;&gt;-->
+<!--                <form class="form-sample" method="post" th:action="@{/property/save}" th:object="${property}">-->
+<!--                    <input type="hidden" th:field="*{id}"/>-->
+<!--                    <p class="card-description">-->
+<!--                        Datos inmueble-->
+<!--                    </p>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-group row">-->
+<!--                                <label>Elige el tipo de inmueble</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <label for="type"></label><select id="type" class="js-example-basic-single w-100"-->
+<!--                                                                      th:field="*{type}">-->
+<!--                                    <option th:each="option : ${propertyTypeOptions}" th:value="${option}"-->
+<!--                                            th:text="${option}"></option>-->
+<!--                                </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-group row">-->
+<!--                                <label>Tipo Operacion</label>-->
+<!--                                <div class="col-sm-4">-->
+<!--                                    <div class="form-check">-->
+<!--                                        <label class="form-check-label">-->
+<!--                                            <input type="radio" class="form-check-input" name="membershipRadios"-->
+<!--                                                   id="membershipRadios1" value="" checked>-->
+<!--                                            Venta-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-5">-->
+<!--                                    <div class="form-check">-->
+<!--                                        <label class="form-check-label">-->
+<!--                                            <input type="radio" class="form-check-input" name="membershipRadios"-->
+<!--                                                   id="membershipRadios2" value="option2">-->
+<!--                                            Alquiler-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <p class="card-description">-->
+<!--                        Ubicacion del inmueble-->
+<!--                    </p>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Localidad</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <input type="text" class="form-control"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Nombre de la via</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <input type="text" class="form-control"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Numero de via</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <input type="text" class="form-control"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Codigo postal</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <input type="text" class="form-control"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
