@@ -78,7 +78,7 @@
       return new global$1(function (resolve) {
         var fileInput = document.createElement('input');
         fileInput.type = 'file';
-        fileInput.accept = 'image/*';
+        fileInput.accept = 'imageEntity/*';
         fileInput.style.position = 'fixed';
         fileInput.style.left = '0';
         fileInput.style.top = '0';
@@ -107,8 +107,8 @@
 
     var setupButtons = function (editor) {
       editor.ui.registry.addButton('quickimage', {
-        icon: 'image',
-        tooltip: 'Insert image',
+        icon: 'imageEntity',
+        tooltip: 'Insert imageEntity',
         onAction: function () {
           pickFile(editor).then(function (files) {
             if (files.length > 0) {
@@ -455,7 +455,7 @@
         return editor.dom.getContentEditableParent(node) !== 'false';
       };
       var isImage = function (node) {
-        return node.nodeName === 'IMG' || node.nodeName === 'FIGURE' && /image/i.test(node.className);
+        return node.nodeName === 'IMG' || node.nodeName === 'FIGURE' && /imageEntity/i.test(node.className);
       };
       var imageToolbarItems = getImageToolbarItems(editor);
       if (imageToolbarItems.trim().length > 0) {

@@ -6,7 +6,7 @@ import lombok.Value;
 import java.io.Serializable;
 
 /**
- * DTO for {@link Image}
+ * DTO for {@link ImageEntity}
  */
 @Value
 @Builder

@@ -48,13 +48,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="image : ${images}">
-        <td><img th:src="@{${image.url}}" alt="${image.name}" height="60px" /></td>
-        <td>[[${image.name}]]</td>
-        <td><a th:href="@{${image.url}}">Download</a></td>
+      <tr th:each="imageEntity : ${images}">
+        <td><img th:src="@{${imageEntity.url}}" alt="${imageEntity.name}" height="60px" /></td>
+        <td>[[${imageEntity.name}]]</td>
+        <td><a th:href="@{${imageEntity.url}}">Download</a></td>
         <td>
-          <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${image.name}}" th:fileName="${image.name}" id="btnDelete"
-             title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+          <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${imageEntity.name}}" th:fileName="${imageEntity.name}" id="btnDelete"
+             title="Delete this imageEntity" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
         </td>
       </tr>
       </tbody>
@@ -119,12 +119,12 @@
         var tableBody = '';
 
         if (images.length > 0) {
-          images.forEach(image => {
+          images.forEach(imageEntity => {
             tableBody += '<tr>';
-            tableBody += '<td><img src="' + image.url + '" alt="' + image.name + '" height="60px" /></td>';
-            tableBody += '<td>' + image.name + '</td>';
-            tableBody += '<td><a href="' + image.url + '">Download</a></td>';
-            tableBody += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId+ '/file/'+ image.name + '" fileName="' + image.name + '" id="btnDelete" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
+            tableBody += '<td><img src="' + imageEntity.url + '" alt="' + imageEntity.name + '" height="60px" /></td>';
+            tableBody += '<td>' + imageEntity.name + '</td>';
+            tableBody += '<td><a href="' + imageEntity.url + '">Download</a></td>';
+            tableBody += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId+ '/file/'+ imageEntity.name + '" fileName="' + imageEntity.name + '" id="btnDelete" title="Delete this imageEntity" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
             tableBody += '</tr>';
           });
         } else {

@@ -63,7 +63,7 @@ public class FileUploadController {
         try {
             Path path = saveFile(Paths.get("./upload", "user", userId, "item", itemId).toString(), file);
             PropertyDto propertyDto = mapper.toDto(propertyRepository.findById(Long.parseLong(userId)).get());
-            propertyDto.getImages().add(ImageDto.builder().name(path.toString()).build());
+            propertyDto.getImageEntities().add(ImageDto.builder().name(path.toString()).build());
             propertyDashboardService.saveProperty(propertyDto);
             byte[] bytes = file.getBytes();
             String message = String.format("User: %s, Item: %s, File: %s, Size: %d bytes",

@@ -102,12 +102,12 @@
           var tableBody = '';
 
           if (images.length > 0) {
-            images.forEach(image => {
+            images.forEach(imageEntity => {
               tableBody += '<tr>';
-              tableBody += '<td><img src="' + imageServerUrl + image.url + '" alt="' + image.name + '" height="60px" /></td>';
-              tableBody += '<td>' + image.name + '</td>';
-              tableBody += '<td><a href="' + imageServerUrl + image.url + '">Download</a></td>';
-              tableBody += '<td><a href="' + imageServerUrl + '/images/delete/' + image.name + '" fileName="' + image.name + '" id="btnDelete" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
+              tableBody += '<td><img src="' + imageServerUrl + imageEntity.url + '" alt="' + imageEntity.name + '" height="60px" /></td>';
+              tableBody += '<td>' + imageEntity.name + '</td>';
+              tableBody += '<td><a href="' + imageServerUrl + imageEntity.url + '">Download</a></td>';
+              tableBody += '<td><a href="' + imageServerUrl + '/images/delete/' + imageEntity.name + '" fileName="' + imageEntity.name + '" id="btnDelete" title="Delete this imageEntity" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
               tableBody += '</tr>';
             });
           } else {

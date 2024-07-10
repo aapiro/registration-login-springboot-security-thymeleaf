@@ -9,10 +9,10 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ImageMapper {
-    Image toEntity(ImageDto imageDto);
+    ImageEntity toEntity(ImageDto imageDto);
 
-    ImageDto toDto(Image image);
+    ImageDto toDto(ImageEntity imageEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Image partialUpdate(ImageDto imageDto, @MappingTarget Image image);
+    ImageEntity partialUpdate(ImageDto imageDto, @MappingTarget ImageEntity imageEntity);
 }

@@ -9,8 +9,8 @@ Version 5.6.0 (2020-11-18)
     Added new `BeforeOpenNotification` and `OpenNotification` events which allow internal notifications to be captured and modified before display #TINY-6528
     Added support for `block` and `unblock` methods on inline dialogs #TINY-6487
     Added new `TableModified` event which is fired whenever changes are made to a table #TINY-6629
-    Added new `images_file_types` setting to determine which image file formats will be automatically processed into `img` tags on paste when using the `paste` plugin #TINY-6306
-    Added support for `images_file_types` setting in the image file uploader to determine which image file extensions are valid for upload #TINY-6224
+    Added new `images_file_types` setting to determine which imageEntity file formats will be automatically processed into `img` tags on paste when using the `paste` plugin #TINY-6306
+    Added support for `images_file_types` setting in the imageEntity file uploader to determine which imageEntity file extensions are valid for upload #TINY-6224
     Added new `format_empty_lines` setting to control if empty lines are formatted in a ranged selection #TINY-6483
     Added template support to the `autocompleter` for customizing the autocompleter items #TINY-6505
     Added new user interface `enable`, `disable`, and `isDisabled` methods #TINY-6397
@@ -19,10 +19,10 @@ Version 5.6.0 (2020-11-18)
     Added new `emoticons_database` setting to configure which emoji database to use #TINY-6021
     Added new `name` field to the `style_formats` setting object to enable specifying a name for the format #TINY-4239
     Changed `readonly` mode to allow hyperlinks to be clickable #TINY-6248
-    Fixed the `change` event not firing after a successful image upload #TINY-6586
+    Fixed the `change` event not firing after a successful imageEntity upload #TINY-6586
     Fixed the type signature for the `entity_encoding` setting not accepting delimited lists #TINY-6648
     Fixed layout issues when empty `tr` elements were incorrectly removed from tables #TINY-4679
-    Fixed image file extensions lost when uploading an image with an alternative extension, such as `.jfif` #TINY-6622
+    Fixed imageEntity file extensions lost when uploading an imageEntity with an alternative extension, such as `.jfif` #TINY-6622
     Fixed a security issue where URLs in attributes weren't correctly sanitized #TINY-6518
     Fixed `DOMUtils.getParents` incorrectly including the shadow root in the array of elements returned #TINY-6540
     Fixed an issue where the root document could be scrolled while an editor dialog was open inside a shadow root #TINY-6363
@@ -73,7 +73,7 @@ Version 5.5.0 (2020-09-29)
     Changed how CSS manipulates table cells when selecting multiple cells to achieve a semi-transparent selection #TINY-6311
     Changed the `target` property on fired events to use the native event target. The original target for an open shadow root can be obtained using `event.getComposedPath()` #TINY-6128
     Changed the editor to clean-up loaded CSS stylesheets when all editors using the stylesheet have been removed #TINY-3926
-    Changed `imagetools` context menu icon for accessing the `image` dialog to use the `image` icon #TINY-4141
+    Changed `imagetools` context menu icon for accessing the `imageEntity` dialog to use the `imageEntity` icon #TINY-4141
     Changed the `editor.insertContent()` and `editor.selection.setContent()` APIs to retain leading and trailing whitespace #TINY-5966
     Changed the `table` plugin `Column` menu to include the cut, copy and paste column menu items #TINY-6374
     Changed the default table styles in the content CSS files to better support the styling options available in the `table` dialog #TINY-6179
@@ -155,7 +155,7 @@ Version 5.4.0 (2020-06-30)
 Version 5.3.2 (2020-06-10)
     Fixed a regression introduced in 5.3.0, where `images_dataimg_filter` was no-longer called #TINY-6086
 Version 5.3.1 (2020-05-27)
-    Fixed the image upload error alert also incorrectly closing the image dialog #TINY-6020
+    Fixed the imageEntity upload error alert also incorrectly closing the imageEntity dialog #TINY-6020
     Fixed editor content scrolling incorrectly on focus in Firefox by reverting default content CSS html and body heights added in 5.3.0 #TINY-6019
 Version 5.3.0 (2020-05-21)
     Added html and body height styles to the default oxide content CSS #TINY-5978
@@ -167,7 +167,7 @@ Version 5.3.0 (2020-05-21)
     Added `auto` mode for `toolbar_location` which positions the toolbar and menu bar at the bottom if there is no space at the top #TINY-3161
     Changed the default `toolbar_location` to `auto` #TINY-3161
     Changed toggle menu items and choice menu items to have a dedicated icon with the checkmark displayed on the far right side of the menu item #TINY-3345
-    Changed the `link`, `image`, and `paste` plugins to use Promises to reduce the bundle size #TINY-4710
+    Changed the `link`, `imageEntity`, and `paste` plugins to use Promises to reduce the bundle size #TINY-4710
     Changed the default icons to be lazy loaded during initialization #TINY-4729
     Changed the parsing of content so base64 encoded urls are converted to blob urls #TINY-4727
     Changed context toolbars so they concatenate when more than one is suitable for the current selection #TINY-4495
@@ -182,12 +182,12 @@ Version 5.3.0 (2020-05-21)
     Fixed supplementary special characters being truncated when inserted into the editor. Patch contributed by mlitwin. #TINY-4791
     Fixed toolbar buttons not set to disabled when the editor is in readonly mode #TINY-4592
     Fixed the editor selection incorrectly changing when removing caret format containers #TINY-3438
-    Fixed bug where title, width, and height would be set to empty string values when updating an image and removing those attributes using the image dialog #TINY-4786
+    Fixed bug where title, width, and height would be set to empty string values when updating an imageEntity and removing those attributes using the imageEntity dialog #TINY-4786
     Fixed `ObjectResized` event firing when an object wasn't resized #TINY-4161
     Fixed `ObjectResized` and `ObjectResizeStart` events incorrectly fired when adding or removing table rows and columns #TINY-4829
     Fixed the placeholder not hiding when pasting content into the editor #TINY-4828
     Fixed an issue where the editor would fail to load if local storage was disabled #TINY-5935
-    Fixed an issue where an uploaded image would reuse a cached image with a different mime type #TINY-5988
+    Fixed an issue where an uploaded imageEntity would reuse a cached imageEntity with a different mime type #TINY-5988
     Fixed bug where toolbars and dialogs would not show if the body element was replaced (e.g. with Turbolinks). Patch contributed by spohlenz #GH-5653
     Fixed an issue where multiple formats would be removed when removing a single format at the end of lines or on empty lines #TINY-1170
     Fixed zero-width spaces incorrectly included in the `wordcount` plugin character count #TINY-5991
@@ -200,7 +200,7 @@ Version 5.2.2 (2020-04-23)
     Fixed the floating toolbar drawer height collapsing when the editor is rendered in modal dialogs or floating containers #TINY-4837
     Fixed `media` embed content not processing safely in some cases #TINY-4857
 Version 5.2.1 (2020-03-25)
-    Fixed the "is decorative" checkbox in the image dialog clearing after certain dialog events #FOAM-11
+    Fixed the "is decorative" checkbox in the imageEntity dialog clearing after certain dialog events #FOAM-11
     Fixed possible uncaught exception when a `style` attribute is removed using a content filter on `setContent` #TINY-4742
     Fixed the table selection not functioning correctly in Microsoft Edge 44 or higher #TINY-3862
     Fixed the table resize handles not functioning correctly in Microsoft Edge 44 or higher #TINY-4160
@@ -226,11 +226,11 @@ Version 5.2.0 (2020-02-13)
     Added new `placeholder` setting to allow a placeholder to be shown when the editor is empty #TINY-3917
     Added new `tinymce.dom.TextSeeker` API to allow searching text across different DOM nodes #TINY-4200
     Added a drop shadow below the toolbar while in sticky mode and introduced Oxide variables to customize it when creating a custom skin #TINY-4343
-    Added `quickbars_image_toolbar` setting to allow for the image quickbar to be turned off #TINY-4398
+    Added `quickbars_image_toolbar` setting to allow for the imageEntity quickbar to be turned off #TINY-4398
     Added iframe and img `loading` attribute to the default schema. Patch contributed by ataylor32. #GH-5112
     Added new `getNodeFilters`/`getAttributeFilters` functions to the `editor.serializer` instance #TINY-4344
     Added new `a11y_advanced_options` setting to allow additional accessibility options to be added #FOAM-11
-    Added new accessibility options and behaviours to the image dialog using `a11y_advanced_options` #FOAM-11
+    Added new accessibility options and behaviours to the imageEntity dialog using `a11y_advanced_options` #FOAM-11
     Added the ability to use the window `PrismJS` instance for the `codesample` plugin instead of the bundled version to allow for styling custom languages #TINY-4504
     Added error message events that fire when a resource loading error occurs #TINY-4509
     Changed the default schema to disallow `onchange` for select elements #TINY-4614
@@ -274,13 +274,13 @@ Version 5.1.6 (2020-01-28)
     Fixed changing a tables row from `Header` to `Body` incorrectly moving the row to the bottom of the table #TINY-4593
     Fixed the context menu not showing in certain cases with hybrid devices #TINY-4569
     Fixed the context menu opening in the wrong location when the target is the editor body #TINY-4568
-    Fixed the `image` plugin not respecting the `automatic_uploads` setting when uploading local images #TINY-4287
+    Fixed the `imageEntity` plugin not respecting the `automatic_uploads` setting when uploading local images #TINY-4287
     Fixed security issue related to parsing HTML comments and CDATA #TINY-4544
 Version 5.1.5 (2019-12-19)
     Fixed the UI not working with hybrid devices that accept both touch and mouse events #TNY-4521
     Fixed the `charmap` dialog initially focusing the first tab of the dialog instead of the search input field #TINY-4342
     Fixed an exception being raised when inserting content if the caret was directly before or after a `contenteditable="false"` element #TINY-4528
-    Fixed a bug with pasting image URLs when paste as text is enabled #TINY-4523
+    Fixed a bug with pasting imageEntity URLs when paste as text is enabled #TINY-4523
 Version 5.1.4 (2019-12-11)
     Fixed dialog contents disappearing when clicking a checkbox for right-to-left languages #TINY-4518
     Fixed the `legacyoutput` plugin registering legacy formats after editior initialization, causing legacy content to be stripped on the initial load #TINY-4447
@@ -381,7 +381,7 @@ Version 5.0.15 (2019-09-02)
 Version 5.0.14 (2019-08-19)
     Added an API to reload the autocompleter menu with additional fetch metadata #MENTIONS-17
     Fixed missing toolbar button border styling options #TINY-3965
-    Fixed image upload progress notification closing before the upload is complete #TINY-3963
+    Fixed imageEntity upload progress notification closing before the upload is complete #TINY-3963
     Fixed inline dialogs not closing on escape when no dialog component is in focus #TINY-3936
     Fixed plugins not being filtered when defaulting to mobile on phones #TINY-3537
     Fixed toolbar more drawer showing the content behind it when transitioning between opened and closed states #TINY-3878
@@ -463,7 +463,7 @@ Version 5.0.8 (2019-06-18)
     Fixed small dot visible with menubar and toolbar disabled in inline mode #TINY-3623
     Fixed space key properly inserts a nbsp before/after block elements #TINY-3745
     Fixed native context menu not showing with images in IE11 #TINY-3392
-    Fixed inconsistent browser context menu image selection #TINY-3789
+    Fixed inconsistent browser context menu imageEntity selection #TINY-3789
 Version 5.0.7 (2019-06-05)
     Added new toolbar button and menu item for inserting tables via dialog #TINY-3636
     Added new API for adding/removing/changing tabs in the Help dialog #TINY-3535
@@ -477,17 +477,17 @@ Version 5.0.7 (2019-06-05)
     Fixed the autocompleter not working with fragmented text #TINY-3459
     Fixed the autosave plugin no longer overwrites window.onbeforeunload #TINY-3688
     Fixed infinite loop in the paste plugin when IE11 takes a long time to process paste events. Patch contributed by lRawd. #GH-4987
-    Fixed image handle locations when using `fixed_toolbar_container`. Patch contributed by t00. #GH-4966
+    Fixed imageEntity handle locations when using `fixed_toolbar_container`. Patch contributed by t00. #GH-4966
     Fixed the autoresize plugin not firing `ResizeEditor` events #TINY-3587
     Fixed editor in fullscreen mode not extending to the bottom of the screen #TINY-3701
     Fixed list removal when pressing backspace after the start of the list item #TINY-3697
     Fixed autocomplete not triggering from compositionend events #TINY-3711
-    Fixed `file_picker_callback` could not set the caption field on the insert image dialog #TINY-3172
+    Fixed `file_picker_callback` could not set the caption field on the insert imageEntity dialog #TINY-3172
     Fixed the autocompleter menu showing up after a selection had been made #TINY-3718
     Fixed an exception being thrown when a file or number input has focus during initialization. Patch contributed by t00 #GH-2194
 Version 5.0.6 (2019-05-22)
     Added `icons_url` editor settings to enable icon packs to be loaded from a custom url #TINY-3585
-    Added `image_uploadtab` editor setting to control the visibility of the upload tab in the image dialog #TINY-3606
+    Added `image_uploadtab` editor setting to control the visibility of the upload tab in the imageEntity dialog #TINY-3606
     Added new api endpoints to the wordcount plugin and improved character count logic #TINY-3578
     Changed plugin, language and icon loading errors to log in the console instead of a notification #TINY-3585
     Fixed the textpattern plugin not working with fragmented text #TINY-3089
@@ -516,7 +516,7 @@ Version 5.0.4 (2019-04-23)
     Added better styling to floating toolbar drawer #TINY-3479
     Added the new premium plugins to the Help dialog plugins tab #TINY-3496
     Added the linkchecker context menu items to the default configuration #TINY-3543
-    Fixed image context menu items showing on placeholder images #TINY-3280
+    Fixed imageEntity context menu items showing on placeholder images #TINY-3280
     Fixed dialog labels and text color contrast within notifications/alert banners to satisfy WCAG 4.5:1 contrast ratio for accessibility #TINY-3351
     Fixed selectbox and colorpicker items not being translated #TINY-3546
     Fixed toolbar drawer sliding mode to correctly focus the editor when tabbing via keyboard navigation #TINY-3533
@@ -565,9 +565,9 @@ Version 5.0.2 (2019-03-05)
     Fixed the resize handle to not show in fullscreen mode #TINY-3404
 Version 5.0.1 (2019-02-21)
     Removed paste as text notification banner and paste_plaintext_inform setting #POW-102
-    Fixed an issue where adding links to images would replace the image with text #TINY-3356
+    Fixed an issue where adding links to images would replace the imageEntity with text #TINY-3356
     Fixed an issue where the inline editor could use fractional pixels for positioning #TINY-3202
-    Fixed an issue where uploading non-image files in the Image Plugin upload tab threw an error. #TINY-3244
+    Fixed an issue where uploading non-imageEntity files in the Image Plugin upload tab threw an error. #TINY-3244
     Added H1-H6 toggle button registration to the silver theme #TINY-3070
     Fixed an issue in the media plugin that was causing the source url and height/width to be lost in certain circumstances #TINY-2858
     Fixed an issue with the Context Toolbar not being removed when clicking outside of the editor #TINY-2804
@@ -592,7 +592,7 @@ Version 5.0.0 (2019-02-04)
     Fixed an issue where tab panel heights weren't sizing properly on smaller screens and weren't updating on resize #TINY-3242
     Added links and registered names with * to denote premium plugins in Plugins tab of Help dialog #TINY-3223
     Changed Tiny 5 mobile skin to look more uniform with desktop #TINY-2650
-    Fixed image tools not having any padding between the label and slider #TINY-3220
+    Fixed imageEntity tools not having any padding between the label and slider #TINY-3220
     Blacklisted table, th and td as inline editor target #TINY-717
     Fixed context toolbar toggle buttons not showing the correct state #TINY-3022
     Fixed missing separators in the spellchecker context menu between the suggestions and actions #TINY-3217
@@ -649,17 +649,17 @@ Version 5.0.0-preview-4 (2018-11-12)
     Fixed distraction free plugin #AP-470
     Removed the tox-custom-editor class that was added to the wrapping element of codemirror #TINY-2211
     Fixed contents of the input field being selected on focus instead of just recieving an outline highlight #AP-464
-    Added width and height placeholder text to image and media dialog dimensions input #AP-296
+    Added width and height placeholder text to imageEntity and media dialog dimensions input #AP-296
     Fixed styling issues with dialogs and menus in IE 11 #AP-456
     Fixed custom style format control not honoring custom formats #AP-393
-    Fixed context menu not appearing when clicking an image with a caption #AP-382
+    Fixed context menu not appearing when clicking an imageEntity with a caption #AP-382
     Fixed directionality of UI when using an RTL language #AP-423
     Fixed page responsiveness with multiple inline editors #AP-430
     Added the ability to keyboard navigate through menus, toolbars, sidebar and the status bar sequentially #AP-381
     Fixed empty toolbar groups appearing through invalid configuration of the `toolbar` property #AP-450
     Fixed text not being retained when updating links through the link dialog #AP-293
     Added translation capability back to the editor's UI #AP-282
-    Fixed edit image context menu, context toolbar and toolbar items being incorrectly enabled when selecting invalid images #AP-323
+    Fixed edit imageEntity context menu, context toolbar and toolbar items being incorrectly enabled when selecting invalid images #AP-323
     Fixed emoji type ahead being shown when typing URLs #AP-366
     Fixed toolbar configuration properties incorrectly expecting string arrays instead of strings #AP-342
     Changed the editor resize handle so that it should be disabled when the autoresize plugin is turned on #AP-424
@@ -722,7 +722,7 @@ Version 4.9.2 (2018-12-17)
     Fixed a bug where the DomParser filters wouldn't be applied for elements created when parsing invalid html. #TINY-2978
     Fixed a bug where setProgressState wouldn't automatically close floating ui elements like menus. #TINY-2896
     Fixed a bug where it wasn't possible to navigate out of a figcaption element using the arrow keys. #TINY-2894
-    Fixed a bug where enter key before an image inside a link would remove the image. #TINY-2780
+    Fixed a bug where enter key before an imageEntity inside a link would remove the imageEntity. #TINY-2780
 Version 4.9.1 (2018-12-04)
     Added functionality to insert html to the replacement feature of the Textpattern Plugin. #TINY-2839
     Fixed a bug where `editor.selection.getContent({format: 'text'})` didn't work as expected in IE11 on an unfocused editor. #TINY-2862
@@ -738,7 +738,7 @@ Version 4.9.0 (2018-11-27)
 Version 4.8.5 (2018-10-30)
     Added a content_css_cors setting to the editor that adds the crossorigin="anonymous" attribute to link tags added by the StyleSheetLoader. #TINY-1909
     Fixed a bug where trying to remove formatting with a collapsed selection range would throw an exception. #GH-4636
-    Fixed a bug in the image plugin that caused updating figures to split contenteditable elements. #GH-4563
+    Fixed a bug in the imageEntity plugin that caused updating figures to split contenteditable elements. #GH-4563
     Fixed a bug that was causing incorrect viewport calculations for fixed position UI elements. #TINY-1897
     Fixed a bug where inline formatting would cause the delete key to do nothing. #TINY-1900
 Version 4.8.4 (2018-10-23)
@@ -791,7 +791,7 @@ Version 4.7.13 (2018-05-16)
     Added missing code menu item from the default menu config. #TINY-1648
     Added new align button for combining the separate align buttons into a menu button. #TINY-1652
 Version 4.7.12 (2018-05-03)
-    Added an option to filter out image svg data urls.
+    Added an option to filter out imageEntity svg data urls.
     Added support for html5 details and summary elements.
     Changed so the mce-abs-layout-item css rule targets html instead of body. Patch contributed by nazar-pc.
     Fixed a bug where the "read" step on the mobile theme was still present on android mobile browsers.
@@ -822,7 +822,7 @@ Version 4.7.10 (2018-04-03)
     Added correct icon to the Nonbreaking Plugin menu item.
     Fixed so the `getContent`/`setContent` methods work even if the editor is not initialized.
     Fixed a bug with the Media Plugin where query strings were being stripped from youtube links.
-    Fixed a bug where image styles were changed/removed when opening and closing the Image Plugin dialog.
+    Fixed a bug where imageEntity styles were changed/removed when opening and closing the Image Plugin dialog.
     Fixed a bug in the Table Plugin where some table cell styles were not correctly added to the content html.
     Fixed a bug in the Spellchecker Plugin where it wasn't possible to change the spellchecker language.
     Fixed so the the unlink action in the Link Plugin has a menu item and can be added to the contextmenu.
@@ -914,12 +914,12 @@ Version 4.7.3 (2017-11-23)
     Fixed bug where editing a newly inserted link would not actually edit the link but insert a new link next to it.
     Fixed bug where deleting all content in a table cell made it impossible to place the caret into it.
     Fixed bug where the vertical alignment field in the Table Plugin cell properties dialog didn't do anything.
-    Fixed bug where an image with a caption showed two sets of resize handles in IE11.
+    Fixed bug where an imageEntity with a caption showed two sets of resize handles in IE11.
     Fixed bug where pressing the enter button inside of an h1 with contenteditable set to true would sometimes produce a p tag.
     Fixed bug with backspace not working as expected before a noneditable element.
     Fixed bug where operating on tables with invalid rowspans would cause an error to be thrown.
-    Fixed so a real base64 representation of the image is available on the blobInfo that the images_upload_handler gets called with.
-    Fixed so the image upload tab is available when the images_upload_handler is defined (and not only when the images_upload_url is defined).
+    Fixed so a real base64 representation of the imageEntity is available on the blobInfo that the images_upload_handler gets called with.
+    Fixed so the imageEntity upload tab is available when the images_upload_handler is defined (and not only when the images_upload_url is defined).
 Version 4.7.2 (2017-11-07)
     Added newly rewritten Table Plugin.
     Added support for attributes with colon in valid_elements and addValidElements.
@@ -1018,7 +1018,7 @@ Version 4.6.6 (2017-08-30)
     Fixed bug where background color wasn't applied correctly on some partially selected contents.
 Version 4.6.5 (2017-08-02)
     Added new inline_boundaries_selector that allows you to specify the elements that should have boundaries.
-    Added new local upload feature this allows the user to upload images directly from the image dialog.
+    Added new local upload feature this allows the user to upload images directly from the imageEntity dialog.
     Added a new api for providing meta data for plugins. It will show up in the help dialog if it's provided.
     Fixed so that the notifications created by the notification manager are more screen reader accessible.
     Fixed bug where changing the list format on multiple selected lists didn't change all of the lists.
@@ -1062,9 +1062,9 @@ Version 4.6.4 (2017-06-13)
 Version 4.6.3 (2017-05-30)
     Fixed bug where the arrow keys didn't work correctly when navigating on nested inline boundary elements.
     Fixed bug where delete/backspace didn't work correctly on nested inline boundary elements.
-    Fixed bug where image editing didn't work on subsequent edits of the same image.
+    Fixed bug where imageEntity editing didn't work on subsequent edits of the same imageEntity.
     Fixed bug where charmap descriptions wouldn't properly wrap if they exceeded the width of the box.
-    Fixed bug where the default image upload handler only accepted 200 as a valid http status code.
+    Fixed bug where the default imageEntity upload handler only accepted 200 as a valid http status code.
     Fixed so rel on target=_blank links gets forced with only noopener instead of both noopener and noreferrer.
 Version 4.6.2 (2017-05-23)
     Fixed bug where the SaxParser would run out of memory on very large documents.
@@ -1091,7 +1091,7 @@ Version 4.6.1 (2017-05-10)
     Fixed bug where fontsize_formats option had been renamed incorrectly.
     Fixed bug with broken backspace/delete behaviour between contenteditable=false blocks.
     Fixed bug where it wasn't possible to backspace to the previous line with the inline boundaries functionality turned on.
-    Fixed bug where is wasn't possible to move caret left and right around a linked image with the inline boundaries functionality turned on.
+    Fixed bug where is wasn't possible to move caret left and right around a linked imageEntity with the inline boundaries functionality turned on.
     Fixed bug where pressing enter after/before hr element threw exception. Patch contributed bradleyke.
     Fixed so the CSS in the visualblocks plugin doesn't overwrite background color. Patch contributed by Christian Rank.
     Fixed bug where multibyte characters weren't encoded correctly. Patch contributed by James Tarkenton.
@@ -1112,7 +1112,7 @@ Version 4.6.0 (2017-05-04)
     Fixed so that keep_styles set to false no longer clones class/style from the previous paragraph on enter.
     Fixed so that the default line-height is 1.2em to avoid zwnbsp characters from producing text rendering glitches on Windows.
     Fixed so that loading errors of content css gets presented by a notification message.
-    Fixed so figure image elements can be linked when selected this wraps the figure image in a anchor element.
+    Fixed so figure imageEntity elements can be linked when selected this wraps the figure imageEntity in a anchor element.
     Fixed bug where it wasn't possible to copy/paste rows with colspans by using the table copy/paste feature.
     Fixed bug where the protect setting wasn't properly applied to header/footer parts when using the fullpage plugin.
     Fixed bug where custom formats that specified upper case element names where not applied correctly.
@@ -1120,7 +1120,7 @@ Version 4.6.0 (2017-05-04)
     Fixed bug where cut wasn't working correctly on iOS due to it's clipboard API not working correctly.
     Fixed bug where Edge would paste div elements instead of paragraphs when pasting plain text.
     Fixed bug where the textpattern plugin wasn't dealing with trailing punctuations correctly.
-    Fixed bug where image editing would some times change the image format from jpg to png.
+    Fixed bug where imageEntity editing would some times change the imageEntity format from jpg to png.
     Fixed bug where some UI elements could be inserted into the toolbar even if they where not registered.
     Fixed bug where it was possible to click the TD instead of the character in the character map and that caused an exception.
     Fixed bug where the font size/font family dropdowns would sometimes show an incorrect value due to css not being loaded in time.
@@ -1196,7 +1196,7 @@ Version 4.5.0 (2016-11-23)
     Added new insert menu button that allows you to have multiple insert functions under the same menu button.
     Added new open link feature to ctrl+click, alt+enter and context menu.
     Added new media_embed_handler option to allow the media plugin to be populated with custom embeds.
-    Added new support for editing transparent images using the image tools dialog.
+    Added new support for editing transparent images using the imageEntity tools dialog.
     Added new images_reuse_filename option to allow filenames of images to be retained for upload.
     Added new security feature where links with target="_blank" will by default get rel="noopener noreferrer".
     Added new allow_unsafe_link_target to allow you to opt-out of the target="_blank" security feature.
@@ -1224,11 +1224,11 @@ Version 4.5.0 (2016-11-23)
     Fixed bug where keys like F5 wouldn't work when a cE=false element was selected.
     Fixed bug where the undo manager wouldn't stop the typing state when commands where executed.
     Fixed bug where unlink on wrapped links wouldn't work properly.
-    Fixed bug with drag/drop of images on WebKit where the image would be deleted form the source editor.
+    Fixed bug with drag/drop of images on WebKit where the imageEntity would be deleted form the source editor.
     Fixed bug where the visual characters mode would be disabled when contents was extracted from the editor.
     Fixed bug where some browsers would toggle of formats applied to the caret when clicking in the editor toolbar.
     Fixed bug where the custom theme function wasn't working correctly.
-    Fixed bug where image option for custom buttons required you to have icon specified as well.
+    Fixed bug where imageEntity option for custom buttons required you to have icon specified as well.
     Fixed bug where the context menu and contextual toolbars would be visible at the same time and sometimes overlapping.
     Fixed bug where the noneditable plugin would double wrap elements when using the noneditable_regexp option.
     Fixed bug where tables would get padding instead of margin when you used the indent button.
@@ -1285,12 +1285,12 @@ Version 4.4.1 (2016-07-26)
     Fixed bug where multiple instances of the editor using the inlite theme didn't render the toolbar properly.
     Fixed bug where the shortcut label for fullscreen mode didn't match the actual shortcut key.
     Fixed bug where it wasn't possible to select cE=false blocks using touch devices on for example iOS.
-    Fixed bug where it was possible to select the child image within a cE=false on IE 11.
+    Fixed bug where it was possible to select the child imageEntity within a cE=false on IE 11.
     Fixed so inserts of html containing lists doesn't merge with any existing lists unless it's a paste operation.
 Version 4.4.0 (2016-06-30)
     Added new inlite theme this is a more lightweight inline UI.
     Added smarter paste logic that auto detects urls in the clipboard and inserts images/links based on that.
-    Added a better image resize algorithm for better image quality in the imagetools plugin.
+    Added a better imageEntity resize algorithm for better imageEntity quality in the imagetools plugin.
     Fixed bug where it wasn't possible to drag/dropping cE=false elements on FF.
     Fixed bug where backspace/delete before/after a cE=false block would produce a new paragraph.
     Fixed bug where list style type css property wasn't preserved when indenting lists.
@@ -1300,7 +1300,7 @@ Version 4.4.0 (2016-06-30)
     Fixed so invalid targets for inline mode is blocked on initialization. We only support elements that can have children.
 Version 4.3.13 (2016-06-08)
     Added characters with a diacritical mark to charmap plugin. Patch contributed by Dominik Schilling.
-    Added better error handling if the image proxy service would produce errors.
+    Added better error handling if the imageEntity proxy service would produce errors.
     Fixed issue with pasting list items into list items would produce nested list rather than a merged list.
     Fixed bug where table selection could get stuck in selection mode for inline editors.
     Fixed bug where it was possible to place the caret inside the resize grid elements.
@@ -1365,7 +1365,7 @@ Version 4.3.6 (2016-03-01)
     Fixed bug where selection inside the first table cell would cause the whole table cell to get selected.
     Fixed bug where error handling of images being uploaded wouldn't properly handle faulty statuses.
     Fixed bug where inserting contents before a HR would cause an exception to be thrown.
-    Fixed bug where copy/paste of Excel data would be inserted as an image.
+    Fixed bug where copy/paste of Excel data would be inserted as an imageEntity.
     Fixed caret position issues with copy/paste of inline block cE=false elements.
     Fixed issues with various menu item focus bugs in Chrome. Where the focused menu bar item wasn't properly blurred.
     Fixed so the notifications have a solid background since it would be hard to read if there where text under it.
@@ -1423,7 +1423,7 @@ Version 4.3.1 (2015-11-30)
     Fixed bug where it wasn't possible to resize some tables using the drag handles.
     Fixed bug where unique id:s would clash for multiple editor instances and cE=false selections.
     Fixed bug where the same plugin could be initialized multiple times.
-    Fixed bug where the table inline toolbars would be displayed at the same time as the image toolbars.
+    Fixed bug where the table inline toolbars would be displayed at the same time as the imageEntity toolbars.
     Fixed bug where the table selection rect wouldn't be removed when selecting another control element.
 Version 4.3.0 (2015-11-23)
     Added new table column/row resize support. Makes it a lot more easy to resize the columns/rows in a table.
@@ -1485,7 +1485,7 @@ Version 4.2.6 (2015-09-28)
 Version 4.2.5 (2015-08-31)
     Added fullscreen capability to embedded youtube and vimeo videos.
     Fixed bug where the uploadImages call didn't work on IE 10.
-    Fixed bug where image place holders would be uploaded by uploadImages call.
+    Fixed bug where imageEntity place holders would be uploaded by uploadImages call.
     Fixed bug where images marked with bogus would be uploaded by the uploadImages call.
     Fixed bug where multiple calls to uploadImages would result in decreased performance.
     Fixed bug where pagebreaks were editable to imagetools patch contributed by Rasmus Wallin.
@@ -1493,14 +1493,14 @@ Version 4.2.5 (2015-08-31)
     Fixed bug for domains containing ".min". Patch contributed by Loïc Février.
     Fixed so validation of external links to accept a number after www. Patch contributed by Victor Carvalho.
     Fixed so the charmap is exposed though execCommand. Patch contributed by Matthew Will.
-    Fixed so that the image uploads are concurrent for improved performance.
+    Fixed so that the imageEntity uploads are concurrent for improved performance.
     Fixed various grammar problems in inline documentation. Patches provided by nikolas.
 Version 4.2.4 (2015-08-17)
     Added picture as a valid element to the HTML 5 schema. Patch contributed by Adam Taylor.
     Fixed bug where contents would be duplicated on drag/drop within the same editor.
     Fixed bug where floating/alignment of images on Edge wouldn't work properly.
     Fixed bug where it wasn't possible to drag images on IE 11.
-    Fixed bug where image selection on Edge would sometimes fail.
+    Fixed bug where imageEntity selection on Edge would sometimes fail.
     Fixed bug where contextual toolbars icons wasn't rendered properly when using the toolbar_items_size.
     Fixed bug where searchreplace dialog doesn't get prefilled with the selected text.
     Fixed bug where fragmented matches wouldn't get properly replaced by the searchreplace plugin.
@@ -1509,8 +1509,8 @@ Version 4.2.4 (2015-08-17)
     Fixed bug where EditorUpload could sometimes throw an exception if the blob wasn't found.
     Fixed xss issues with media plugin not properly filtering out some script attributes.
 Version 4.2.3 (2015-07-30)
-    Fixed bug where image selection wasn't possible on Edge due to incompatible setBaseAndExtend API.
-    Fixed bug where image blobs urls where not properly destroyed by the imagetools plugin.
+    Fixed bug where imageEntity selection wasn't possible on Edge due to incompatible setBaseAndExtend API.
+    Fixed bug where imageEntity blobs urls where not properly destroyed by the imagetools plugin.
     Fixed bug where keyboard shortcuts wasn't working correctly on IE 8.
     Fixed skin issue where the borders of panels where not visible on IE 8.
 Version 4.2.2 (2015-07-22)
@@ -1525,7 +1525,7 @@ Version 4.2.1 (2015-06-29)
     Fixed bug where back/forward buttons in the browser would render blob images as broken images.
     Fixed bug where Firefox would throw regexp to big error when replacing huge base64 chunks.
     Fixed bug rendering issues with resize and context toolbars not being placed properly until next animation frame.
-    Fixed bug where the rendering of the image while cropping would some times not be centered correctly.
+    Fixed bug where the rendering of the imageEntity while cropping would some times not be centered correctly.
     Fixed bug where listbox items with submenus would me selected as active.
     Fixed bug where context menu where throwing an error when rendering.
     Fixed bug where resize both option wasn't working due to resent addClass API change. Patch contributed by Jogai.
@@ -1539,12 +1539,12 @@ Version 4.2.0 (2015-06-25)
     Added new imagetools plugin, lets you crop/resize and apply filters to images.
     Added new contextual toolbars support to the API lets you add floating toolbars for specific CSS selectors.
     Added new promise feature fill as tinymce.util.Promise.
-    Added new built in image upload feature lets you upload any base64 encoded image within the editor as files.
+    Added new built in imageEntity upload feature lets you upload any base64 encoded imageEntity within the editor as files.
     Fixed bug where resize handles would appear in the right position in the wrong editor when switching between resizable content in different inline editors.
     Fixed bug where tables would not be inserted in inline mode due to previous float panel fix.
     Fixed bug where floating panels would remain open when focus was lost on inline editors.
     Fixed bug where cut command on Chrome would thrown a browser security exception.
-    Fixed bug where IE 11 sometimes would report an incorrect size for images in the image dialog.
+    Fixed bug where IE 11 sometimes would report an incorrect size for images in the imageEntity dialog.
     Fixed bug where it wasn't possible to remove inline formatting at the end of block elements.
     Fixed bug where it wasn't possible to delete table cell contents when cell selection was vertical.
     Fixed bug where table cell wasn't emptied from block elements if delete/backspace where pressed in empty cell.
@@ -1572,7 +1572,7 @@ Version 4.1.10 (2015-05-05)
     Fixed issue where some PI element values wouldn't be properly encoded.
 Version 4.1.9 (2015-03-10)
     Fixed bug where indentation wouldn't work properly for non list elements.
-    Fixed bug with image plugin not pulling the image dimensions out correctly if a custom document_base_url was used.
+    Fixed bug with imageEntity plugin not pulling the imageEntity dimensions out correctly if a custom document_base_url was used.
     Fixed bug where ctrl+alt+[1-9] would conflict with the AltGr+[1-9] on Windows. New shortcuts is ctrl+shift+[1-9].
     Fixed bug with removing formatting on nodes in inline mode would sometimes include nodes outside the editor body.
     Fixed bug where extra nbsp:s would be inserted when you replaced a word surrounded by spaces using insertContent.
@@ -1584,12 +1584,12 @@ Version 4.1.8 (2015-03-05)
     Added new link_assume_external_targets option to prompt the user to prepend http:// prefix if the supplied link does not contain a protocol prefix.
     Added new image_prepend_url option to allow a custom base path/url to be added to images.
     Added new table_appearance_options option to make it possible to disable some options.
-    Added new image_title option to make it possible to alter the title of the image, disabled by default.
+    Added new image_title option to make it possible to alter the title of the imageEntity, disabled by default.
     Fixed bug where selection starting from out side of the body wouldn't produce a proper selection range on IE 11.
     Fixed bug where pressing enter twice before a table moves the cursor in the table and causes a javascript error.
-    Fixed bug where advanced image styles were not respected.
+    Fixed bug where advanced imageEntity styles were not respected.
     Fixed bug where the less common Shift+Delete didn't produce a proper cut operation on WebKit browsers.
-    Fixed bug where image/media size constrain logic would produce NaN when handling non number values.
+    Fixed bug where imageEntity/media size constrain logic would produce NaN when handling non number values.
     Fixed bug where internal classes where removed by the removeformat command.
     Fixed bug with creating links table cell contents with a specific selection would throw a exceptions on WebKit/Blink.
     Fixed bug where valid_classes option didn't work as expected according to docs. Patch provided by thorn0.
@@ -1628,7 +1628,7 @@ Version 4.1.7 (2014-11-27)
     Fixed bug where IE 7 wouldn't be rendered properly due to aggressive css compression.
     Fixed bug where DomQuery wouldn't accept window as constructor element.
     Fixed bug where the color picker in 3.x dialogs wouldn't work properly. Patch contributed by Callidior.
-    Fixed bug where the image plugin wouldn't respect the document_base_url.
+    Fixed bug where the imageEntity plugin wouldn't respect the document_base_url.
     Fixed bug where the jQuery plugin would fail to append to elements named array prototype names.
 Version 4.1.6 (2014-10-08)
     Fixed bug with clicking on the scrollbar of the iframe would cause a JS error to be thrown.
@@ -1684,9 +1684,9 @@ Version 4.1.3 (2014-07-29)
     Fixed bug where table sizes wasn't properly retained when copy/pasting on WebKit/Blink.
     Fixed bug where WebKit/Blink would produce colors in RGB format instead of the forced HEX format when deleting contents.
     Fixed bug where the width attribute wasn't updated on tables if you changed the size inside the table dialog.
-    Fixed bug where control selection wasn't properly handled when the caret was placed directly after an image.
+    Fixed bug where control selection wasn't properly handled when the caret was placed directly after an imageEntity.
     Fixed bug where selecting the contents of table cells using the selection.select method wouldn't place the caret properly.
-    Fixed bug where the selection state for images wasn't removed when placing the caret right after an image on WebKit/Blink.
+    Fixed bug where the selection state for images wasn't removed when placing the caret right after an imageEntity on WebKit/Blink.
     Fixed bug where all events wasn't properly unbound when and editor instance was removed or destroyed by some external innerHTML call.
     Fixed bug where it wasn't possible or very hard to select images on iOS when the onscreen keyboard was visible.
     Fixed so auto_focus can take a boolean argument this will auto focus the last initialized editor might be useful for single inits.
@@ -1744,7 +1744,7 @@ Version 4.1.0 (2014-06-18)
     Added new "once" method to Editor and EventDispatcher enables since callback execution events.
     Added new jQuery like class under tinymce.dom.DomQuery it's exposed on editor instances (editor.$) and globally under (tinymce.$).
     Fixed so the default resize method for images are proportional shift/ctrl can be used to make an unproportional size.
-    Fixed bug where the image_dimensions option of the image plugin would cause exceptions when it tried to update the size.
+    Fixed bug where the image_dimensions option of the imageEntity plugin would cause exceptions when it tried to update the size.
     Fixed bug where table cell dialog class field wasn't properly updated when editing an a table cell with an existing class.
     Fixed bug where Safari on Mac would produce webkit-fake-url for pasted images so these are now removed.
     Fixed bug where the nodeChange event would get fired before the selection was changed when clicking inside the current selection range.

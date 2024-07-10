@@ -8,6 +8,7 @@ import com.ilimitech.webapp.realstate.entity.PropertyMapper;
 import com.ilimitech.webapp.realstate.entity.PropertyType;
 import com.ilimitech.webapp.realstate.entity.PropertyTypeDto;
 import com.ilimitech.webapp.realstate.frontend.bff.PropertyDetailResponse;
+import com.ilimitech.webapp.realstate.frontend.dto.ContactFormDto;
 import com.ilimitech.webapp.realstate.frontend.service.PropertyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.ilimitech.administration.util.CaptchaUtil.getCaptcha;
 
 @Controller
 @AllArgsConstructor
@@ -53,28 +56,17 @@ public class PropertyController {
         mav.addObject("propertyTypes", categoriesTypes);
         mav.addObject("locations", locations);
         mav.addObject("searchCriteria", new SearchCriteria());
+
         return mav;
     }
-//    @GetMapping("/properties/new")
-//    public ModelAndView addProperty() {
-//        ModelAndView mav = new ModelAndView("dashboard/property-simple-form");
-//        PropertyEntity PropertyEntity = new PropertyEntity();
-//        mav.addObject("property", PropertyEntity);
-//        mav.addObject("pageTitle", "Create new PropertyEntity");
-//        return mav;
-//    }
-
     @PostMapping("/search-property")
     public ModelAndView getAllPropertiesBySearch(@ModelAttribute SearchCriteria searchCriteria) {
-
         return getModelAndView();
     }
     @GetMapping("/search-property")
     public ModelAndView getAllPropertiesByType(@RequestParam(required = false) String categoryType) {
-
         return getModelAndView();
     }
-
     private ModelAndView getModelAndView() {
         ModelAndView mav = new ModelAndView("realstate/frontend/property-list");
         List<PropertyDto> propertyEntityList = propertyService.getAllProperties();
@@ -91,7 +83,6 @@ public class PropertyController {
         mav.addObject("searchCriteria", attributeValue);
         return mav;
     }
-
     @GetMapping("/property/{id}")
     public ModelAndView getPropertyDetail(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
 
@@ -101,11 +92,15 @@ public class PropertyController {
                 "Feature 2",
                 "Feature 3"
         );
-        PropertyDetailResponse pdr = propertyMapper.toDto(propertyService.getPropertyById(id));
+        PropertyDto propertyById = propertyService.getPropertyById(id);
+        PropertyDetailResponse pdr = propertyMapper.toDto(propertyById);
         pdr.setFeatures(features);
         try {
             mav.addObject("searchCriteria", new SearchCriteria());
             mav.addObject("property", pdr);
+            ContactFormDto build = ContactFormDto.builder().build();
+            getCaptcha(build);
+            mav.addObject("form", build);
             return mav;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());

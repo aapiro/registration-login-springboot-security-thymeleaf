@@ -1,13 +1,16 @@
 package com.ilimitech.webapp.realstate.frontend.service;
 
 import com.ilimitech.webapp.realstate.entity.PropertyDto;
+import com.ilimitech.webapp.realstate.entity.PropertyEntity;
 import com.ilimitech.webapp.realstate.entity.PropertyEntityMapper;
 import com.ilimitech.webapp.realstate.entity.PropertyMapper;
 import com.ilimitech.webapp.realstate.frontend.repository.PropertyRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -32,11 +35,15 @@ public class PropertyService {
     }
 
     public PropertyDto getPropertyById(Long id) {
-        return propertyRepository.findById(id)
+        Optional<PropertyEntity> byId = propertyRepository.findById(id);
+        return byId
                 .map(propertyEntityMapper::toDto)
                 .orElseGet(PropertyDto::new);
     }
-
+    public PropertyEntity findPropertyById(Long id) {
+        return propertyRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Property not found with id: " + id));
+    }
 //    public void save(PropertyFrontendEntity property) {
 //        propertyRepository.save(property);
 //    }

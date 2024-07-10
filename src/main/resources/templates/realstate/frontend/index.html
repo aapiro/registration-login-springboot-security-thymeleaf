@@ -24,8 +24,8 @@
                 </div>
                 <div class="col-md-6 animated fadeIn">
                     <div class="owl-carousel header-carousel">
-                        <div class="owl-carousel-item" th:each="image : ${carouselImages}">
-                            <img class="img-fluid" th:src="@{'/realstate/frontend/images/' + ${image}}" alt="">
+                        <div class="owl-carousel-item" th:each="imageEntity : ${carouselImages}">
+                            <img class="img-fluid" th:src="@{'/realstate/frontend/images/' + ${imageEntity}}" alt="">
                         </div>
                     </div>
                 </div>

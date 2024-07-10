@@ -262,7 +262,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         maxThumbnailFilesize: 10,
 
         /**
-         * If `null`, the ratio of the image will be used to calculate it.
+         * If `null`, the ratio of the imageEntity will be used to calculate it.
          */
         thumbnailWidth: 120,
 
@@ -293,8 +293,8 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         resizeHeight: null,
 
         /**
-         * The mime type of the resized image (before it gets uploaded to the server).
-         * If `null` the original mime type will be used. To force jpeg, for example, use `image/jpeg`.
+         * The mime type of the resized imageEntity (before it gets uploaded to the server).
+         * If `null` the original mime type will be used. To force jpeg, for example, use `imageEntity/jpeg`.
          * See `resizeWidth` for more information.
          */
         resizeMimeType: null,
@@ -349,7 +349,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          * extension against this list. This is a comma separated list of mime
          * types or file extensions.
          *
-         * Eg.: `image/*,application/pdf,.psd`
+         * Eg.: `imageEntity/*,application/pdf,.psd`
          *
          * If the Dropzone is `clickable` this option will also be used as
          * [`accept`](https://developer.mozilla.org/en-US/docs/HTML/Element/input#attr-accept)
@@ -411,7 +411,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          * If microphone, mobile devices will skip the file selection and choose the microphone
          * If camcorder, mobile devices will skip the file selection and choose the camera in video mode
          * On apple devices multiple must be set to false.  AcceptedFiles may need to
-         * be set to an appropriate mime type (e.g. "image/*", "audio/*", or "video/*").
+         * be set to an appropriate mime type (e.g. "imageEntity/*", "audio/*", or "video/*").
          */
         capture: null,
 
@@ -677,7 +677,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         },
 
         /**
-         * Can be used to transform the file (for example, resize an image if necessary).
+         * Can be used to transform the file (for example, resize an imageEntity if necessary).
          *
          * The default implementation uses `resizeWidth` and `resizeHeight` (if provided) and resizes
          * images according to those dimensions.
@@ -686,7 +686,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          * to be invoked with the file when the transformation is done.
          */
         transformFile: function transformFile(file, done) {
-          if ((this.options.resizeWidth || this.options.resizeHeight) && file.type.match(/image.*/)) {
+          if ((this.options.resizeWidth || this.options.resizeHeight) && file.type.match(/imageEntity.*/)) {
             return this.resizeImage(file, this.options.resizeWidth, this.options.resizeHeight, this.options.resizeMethod, done);
           } else {
             return done(file);
@@ -707,7 +707,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          *       .innerHTML
          *
          */
-        previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n      <title>Check</title>\n      <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n      <title>Error</title>\n      <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n        <g stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>",
+        previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-imageEntity\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n      <title>Check</title>\n      <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n      <title>Error</title>\n      <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n        <g stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>",
         // END OPTIONS
         // (Required by the dropzone documentation parser)
 
@@ -854,7 +854,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
             }
 
             return setTimeout(function () {
-              return file.previewElement.classList.add("dz-image-preview");
+              return file.previewElement.classList.add("dz-imageEntity-preview");
             }, 1);
           }
         },
@@ -1837,7 +1837,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
     value: function _enqueueThumbnail(file) {
       var _this9 = this;
 
-      if (this.options.createImageThumbnails && file.type.match(/image.*/) && file.size <= this.options.maxThumbnailFilesize * 1024 * 1024) {
+      if (this.options.createImageThumbnails && file.type.match(/imageEntity.*/) && file.size <= this.options.maxThumbnailFilesize * 1024 * 1024) {
         this._thumbnailQueue.push(file);
 
         return setTimeout(function () {
@@ -1907,7 +1907,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
       }
 
       return null;
-    } // Resizes an image before it gets sent to the server. This function is the default behavior of
+    } // Resizes an imageEntity before it gets sent to the server. This function is the default behavior of
     // `options.transformFile` if `resizeWidth` or `resizeHeight` are set. The callback is invoked with
     // the resized blob.
 
@@ -1918,7 +1918,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
       return this.createThumbnail(file, width, height, resizeMethod, true, function (dataUrl, canvas) {
         if (canvas == null) {
-          // The image has not been resized
+          // The imageEntity has not been resized
           return callback(file);
         } else {
           var resizeMimeType = _this11.options.resizeMimeType;
@@ -1929,7 +1929,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
           var resizedDataURL = canvas.toDataURL(resizeMimeType, _this11.options.resizeQuality);
 
-          if (resizeMimeType === 'image/jpeg' || resizeMimeType === 'image/jpg') {
+          if (resizeMimeType === 'imageEntity/jpeg' || resizeMimeType === 'imageEntity/jpg') {
             // Now add the original EXIF information
             resizedDataURL = ExifRestore.restore(file.dataURL, resizedDataURL);
           }
@@ -1948,7 +1948,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
       fileReader.onload = function () {
         file.dataURL = fileReader.result; // Don't bother creating a thumbnail for SVG images since they're vector
 
-        if (file.type === "image/svg+xml") {
+        if (file.type === "imageEntity/svg+xml") {
           if (callback != null) {
             callback(fileReader.result);
           }
@@ -1964,7 +1964,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
     // 
     //     { name: 'name', size: 12345, imageUrl: '' }
     //
-    // `callback` will be invoked when the image has been downloaded and displayed.
+    // `callback` will be invoked when the imageEntity has been downloaded and displayed.
     // `crossOrigin` will be added to the `img` tag when accessing the file.
 
   }, {
@@ -2004,7 +2004,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
       } // fixOrientation is not needed anymore with browsers handling imageOrientation
 
 
-      fixOrientation = getComputedStyle(document.body)['imageOrientation'] == 'from-image' ? false : fixOrientation;
+      fixOrientation = getComputedStyle(document.body)['imageOrientation'] == 'from-imageEntity' ? false : fixOrientation;
 
       img.onload = function () {
         var loadExif = function loadExif(callback) {
@@ -2082,7 +2082,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
 
           drawImageIOSFix(ctx, img, resizeInfo.srcX != null ? resizeInfo.srcX : 0, resizeInfo.srcY != null ? resizeInfo.srcY : 0, resizeInfo.srcWidth, resizeInfo.srcHeight, resizeInfo.trgX != null ? resizeInfo.trgX : 0, resizeInfo.trgY != null ? resizeInfo.trgY : 0, resizeInfo.trgWidth, resizeInfo.trgHeight);
-          var thumbnail = canvas.toDataURL("image/png");
+          var thumbnail = canvas.toDataURL("imageEntity/png");
 
           if (callback != null) {
             return callback(thumbnail, canvas);
@@ -3129,7 +3129,7 @@ Dropzone.isValidFile = function (file, acceptedFiles) {
           return true;
         }
       } else if (/\/\*$/.test(validType)) {
-        // This is something like a image/* mime type
+        // This is something like a imageEntity/* mime type
         if (baseMimeType === validType.replace(/\/.*$/, "")) {
           return true;
         }
@@ -3182,8 +3182,8 @@ Dropzone.SUCCESS = "success";
  based on the work of https://github.com/stomita/ios-imagefile-megapixel
 
  */
-// Detecting vertical squash in loaded image.
-// Fixes a bug which squash image vertically while drawing into canvas for some images.
+// Detecting vertical squash in loaded imageEntity.
+// Fixes a bug which squash imageEntity vertically while drawing into canvas for some images.
 // This is a bug in iOS6 devices. This function from https://github.com/stomita/ios-imagefile-megapixel
 
 var detectVerticalSquash = function detectVerticalSquash(img) {
@@ -3196,7 +3196,7 @@ var detectVerticalSquash = function detectVerticalSquash(img) {
   ctx.drawImage(img, 0, 0);
 
   var _ctx$getImageData = ctx.getImageData(1, 0, 1, ih),
-      data = _ctx$getImageData.data; // search image edge pixel position in case it is squashed vertically.
+      data = _ctx$getImageData.data; // search imageEntity edge pixel position in case it is squashed vertically.
 
 
   var sy = 0;
@@ -3286,14 +3286,14 @@ var ExifRestore = /*#__PURE__*/function () {
   }, {
     key: "restore",
     value: function restore(origFileBase64, resizedFileBase64) {
-      if (!origFileBase64.match('data:image/jpeg;base64,')) {
+      if (!origFileBase64.match('data:imageEntity/jpeg;base64,')) {
         return resizedFileBase64;
       }
 
-      var rawImage = this.decode64(origFileBase64.replace('data:image/jpeg;base64,', ''));
+      var rawImage = this.decode64(origFileBase64.replace('data:imageEntity/jpeg;base64,', ''));
       var segments = this.slice2Segments(rawImage);
-      var image = this.exifManipulation(resizedFileBase64, segments);
-      return "data:image/jpeg;base64,".concat(this.encode64(image));
+      var imageEntity = this.exifManipulation(resizedFileBase64, segments);
+      return "data:imageEntity/jpeg;base64,".concat(this.encode64(imageEntity));
     }
   }, {
     key: "exifManipulation",
@@ -3324,7 +3324,7 @@ var ExifRestore = /*#__PURE__*/function () {
   }, {
     key: "insertExif",
     value: function insertExif(resizedFileBase64, exifArray) {
-      var imageData = resizedFileBase64.replace('data:image/jpeg;base64,', '');
+      var imageData = resizedFileBase64.replace('data:imageEntity/jpeg;base64,', '');
       var buf = this.decode64(imageData);
       var separatePoint = buf.indexOf(255, 3);
       var mae = buf.slice(0, separatePoint);

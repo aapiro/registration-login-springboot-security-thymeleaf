@@ -25,7 +25,7 @@ With this in mind, as technology continues to advance and evolve, we want to mak
 TinyMCE easily integrates into applications of all types and sizes, to provide the best content creation experience possible.
 
 <p align="center">
-  <img alt="Tiny Technologies Logo" src="https://www.tiny.cloud/storage/github-readme-images/tiny-image.png"\>
+  <img alt="Tiny Technologies Logo" src="https://www.tiny.cloud/storage/github-readme-images/tiny-imageEntity.png"\>
 </p>
 
 ## Try the demo

@@ -35,6 +35,7 @@ public class SpringSecurity {
                                 .requestMatchers("/check-username").permitAll()
                                 .requestMatchers("/check-email").permitAll()
                                 .requestMatchers("/index").permitAll()
+                                .requestMatchers("/captcha").permitAll()
                                 /**
                                  * Realstate security begin
                                  */

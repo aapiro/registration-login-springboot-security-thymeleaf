@@ -19,9 +19,10 @@ public interface PropertyMapper {
 
     @AfterMapping
     default void linkImages(@MappingTarget PropertyEntity propertyEntity) {
-        propertyEntity.getImages().forEach(image -> image.setPropertyEntity(propertyEntity));
+        propertyEntity.getImageEntities().forEach(image -> image.setPropertyEntity(propertyEntity));
     }
 
+//    @Mapping(target = "ignoredField", ignore = true)
     PropertyDto toDto(PropertyEntity propertyEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -40,7 +41,7 @@ public interface PropertyMapper {
     PropertyDetailResponse toDto(PropertyDto propertyDto);
 
     default List<String> imagesToStrings(PropertyDto propertyDto) {
-        return propertyDto.getImages().stream().map(ImageDto::getImageUrl).toList();
+        return propertyDto.getImageEntities().stream().map(ImageDto::getImageUrl).toList();
     }
 
 //    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

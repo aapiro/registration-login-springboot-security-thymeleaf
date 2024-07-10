@@ -159,6 +159,9 @@ public class PropertyEntity {
     private PropertyContactEntity propertyContact;
 
     @OneToMany(mappedBy = "propertyEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> images = new ArrayList<>();
+    private List<ImageEntity> imageEntities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "propertyEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContactFormEntity> contactFormEntities = new ArrayList<>();
 
 }

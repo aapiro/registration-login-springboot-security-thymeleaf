@@ -58,5 +58,5 @@ public class PropertyDto {
     private int numBedrooms;
     private int numBathrooms;
     private PropertyContactDto propertyContact;
-    List<ImageDto> images;
+    List<ImageDto> imageEntities;
 }

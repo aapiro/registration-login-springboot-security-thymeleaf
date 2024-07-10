@@ -12,6 +12,7 @@ public interface PropertyEntityMapper {
 
     PropertyEntity toEntity(PropertyDto propertyDto);
 
+
     PropertyDto toDto(PropertyEntity propertyEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

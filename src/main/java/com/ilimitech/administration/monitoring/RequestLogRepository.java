@@ -11,18 +11,6 @@ import java.time.LocalDateTime;
 
 public interface RequestLogRepository extends JpaRepository<RequestLog, Long> {
 
-//    @Query("""
-//            select distinct r from RequestLog r
-//            where upper(r.username) like upper(concat('%', ?1, '%')) or r.timestamp >= ?2 and r.timestamp <= ?3""")
-//    Page<RequestLog> findAllLogByFilter(@Nullable String username, @Nullable LocalDateTime startDate, @Nullable LocalDateTime endDate, Pageable pageable);
-
-//    @Query("SELECT r FROM RequestLog r WHERE (:username IS NULL OR r.username = :username) " +
-//            "AND (:startDate IS NULL OR r.timestamp >= :startDate) " +
-//            "AND (:endDate IS NULL OR r.timestamp <= :endDate)")
-//    Page<RequestLog> findAllByFilters(@Param("username") String username,
-//                                      @Param("startDate") LocalDateTime startDate,
-//                                      @Param("endDate") LocalDateTime endDate,
-//                                      Pageable pageable);
 @Query("""
         select r from RequestLog r
         where upper(r.username) like upper(concat('%', ?1, '%')) and r.timestamp <= ?2 and r.timestamp >= ?3""")
