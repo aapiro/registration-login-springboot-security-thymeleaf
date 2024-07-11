@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="snapshotDbValue" value="b7ebac93-e659-4edb-9122-57e815f9fc95" />
+    <option name="sourceModelValue" value="Default" />
+    <option name="targetDbValue" value="b7ebac93-e659-4edb-9122-57e815f9fc95__jcodeappbase_public" />
+    <option name="updateChangeLogPath" value="src/main/resources/db.changelog" />
+    <option name="updateDbConnectionName" value="b7ebac93-e659-4edb-9122-57e815f9fc95__jcodeappbase_public" />
+  </component>
+</project>

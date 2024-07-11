@@ -11,8 +11,8 @@
 <body>
 <div class="container">
     <h2 class="my-4">Form Example</h2>
-    <!--/*@thymesVar id="formData" type="com.ilimitech.webapp.realstate.entity.FormData"*/-->
-    <form th:action="@{/submit-form}" th:object="${formData}" method="post">
+    <!--/*@thymesVar id="formDataDto" type="com.ilimitech.webapp.realstate.dto.FormDataDto"*/-->
+    <form th:action="@{/submit-form}" th:object="${formDataDto}" method="post">
         <!-- Text input -->
         <div class="mb-3">
             <label for="textInput" class="form-label">Text Input</label>

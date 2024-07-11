@@ -477,7 +477,7 @@ Version 5.0.7 (2019-06-05)
     Fixed the autocompleter not working with fragmented text #TINY-3459
     Fixed the autosave plugin no longer overwrites window.onbeforeunload #TINY-3688
     Fixed infinite loop in the paste plugin when IE11 takes a long time to process paste events. Patch contributed by lRawd. #GH-4987
-    Fixed imageEntity handle locations when using `fixed_toolbar_container`. Patch contributed by t00. #GH-4966
+    Fixed imageEntity handle locationDtos when using `fixed_toolbar_container`. Patch contributed by t00. #GH-4966
     Fixed the autoresize plugin not firing `ResizeEditor` events #TINY-3587
     Fixed editor in fullscreen mode not extending to the bottom of the screen #TINY-3701
     Fixed list removal when pressing backspace after the start of the list item #TINY-3697

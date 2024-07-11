@@ -31,15 +31,15 @@ public class SpringSecurity {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/register/**").permitAll()
-                                .requestMatchers("/check-username").permitAll()
-                                .requestMatchers("/check-email").permitAll()
-                                .requestMatchers("/index").permitAll()
-                                .requestMatchers("/captcha").permitAll()
+                                .requestMatchers("/administrator/register/**").permitAll()
+                                .requestMatchers("/administrator/check-username").permitAll()
+                                .requestMatchers("/administrator/check-email").permitAll()
+                                .requestMatchers("/administrator/index").permitAll()
+                                .requestMatchers("/administrator/captcha").permitAll()
                                 /**
                                  * Realstate security begin
                                  */
-                                .requestMatchers("/index-properties").permitAll()
+                                .requestMatchers("/").permitAll()
                                 .requestMatchers("/realstate/**").permitAll()
                                 .requestMatchers("/property/**").permitAll()
                                 .requestMatchers("/search-property").permitAll()
@@ -47,20 +47,20 @@ public class SpringSecurity {
                                 /**
                                  * Realstate security end
                                  */
-                                .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/edit/**", "/delete/**").hasRole("ADMIN")
-                                .requestMatchers("/profile","/logout", "/logs").authenticated()
+                                .requestMatchers("/administrator/users").hasRole("ADMIN")
+                                .requestMatchers("/administrator/edit/**", "/administrator/delete/**").hasRole("ADMIN")
+                                .requestMatchers("/administrator/profile","/administrator/logout", "/administrator/logs").authenticated()
                                 .anyRequest().authenticated()
                 ).formLogin(
                         form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
+                                .loginPage("/administrator/login")
+                                .loginProcessingUrl("/administrator/login")
 //                                .successForwardUrl("/users")
                                 .defaultSuccessUrl("/", true)
                                 .permitAll()
                 ).logout(
                         logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/administrator/logout"))
                                 .permitAll()
                 );
         return http.build();

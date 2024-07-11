@@ -26,7 +26,7 @@
                                 <!-- Combo box para ubicaciones -->
                                 <select class="form-select border-0 py-3" th:field="*{location}">
                                     <option value="">Select Location</option>
-                                    <option th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name}">Location</option>
+                                    <option th:each="location : ${locationDtos}" th:value="${location.id}" th:text="${location.name}">Location</option>
                                 </select>
                             </div>
                         </div>

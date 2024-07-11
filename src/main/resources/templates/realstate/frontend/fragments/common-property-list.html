@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="tab-content">
-            <!--/*@thymesVar id="properties" type="com.ilimitech.webapp.realstate.frontend.bff.PropertyListFrontResponse"*/-->
+            <!--/*@thymesVar id="properties" type="com.ilimitech.webapp.realstate.bff.PropertyListFrontResponse"*/-->
             <div th:each="property, iterStat : ${properties}"
                  th:id="${'tab-' + iterStat.index}"
                  class="tab-pane fade show p-0"

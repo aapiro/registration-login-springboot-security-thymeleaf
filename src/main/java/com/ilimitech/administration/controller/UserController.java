@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/administrator")
 public class UserController {
 
     private final UserService userService;
@@ -42,7 +44,7 @@ public class UserController {
     public String editUser(@ModelAttribute UserDto user) {
         // Lógica para actualizar el usuario
         userService.updateUser(user);
-        return "redirect:/users"; // Redirige a la página de usuarios registrados
+        return "redirect:/administrator/users"; // Redirige a la página de usuarios registrados
     }
 
     @PostMapping("/delete/{id}")
@@ -65,7 +67,7 @@ public class UserController {
         }
 
         userService.delete(id);
-        return "redirect:/users/list";
+        return "redirect:/administrator/users/list";
     }
 
     @GetMapping("/check-username")

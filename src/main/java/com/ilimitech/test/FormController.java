@@ -1,6 +1,6 @@
 package com.ilimitech.test;
 
-import com.ilimitech.webapp.realstate.entity.FormData;
+import com.ilimitech.webapp.realstate.dto.FormDataDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,8 @@ public class FormController {
 
     @GetMapping("/form")
     public String showForm(Model model) {
-        FormData formData = new FormData();
-        model.addAttribute("formData", formData);
+        FormDataDto formDataDto = new FormDataDto();
+        model.addAttribute("formData", formDataDto);
 
         // Sample options
         List<String> selectOptions = Arrays.asList("Option 1", "Option 2", "Option 3");
@@ -31,8 +31,8 @@ public class FormController {
     }
 
     @PostMapping("/submit-form")
-    public String submitForm(@ModelAttribute FormData formData, Model model) {
-        model.addAttribute("formData", formData);
+    public String submitForm(@ModelAttribute FormDataDto formDataDto, Model model) {
+        model.addAttribute("formData", formDataDto);
         return "dashboard/form-template-example";
     }
 }

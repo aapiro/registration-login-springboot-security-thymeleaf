@@ -1,36 +1,38 @@
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+    root: INFO
 server:
   port: 8080
 spring:
-  sql:
-    init:
-      mode: never
   datasource:
+    password: 123456
     url: jdbc:postgresql://localhost:5432/jcodeappbase
     username: admin
-    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-        lob:
+        jdbc: 'null'
+        lob: 'null'
         non_contextual_creation: true
     show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/master.sql
   servlet:
     multipart:
       max-file-size: 1MB
       max-request-size: 1MB
+  sql:
+    init:
+      mode: never
   thymeleaf:
     cache: false
+    mode: HTML
     reactive:
       max-chunk-size: 8192
-    mode: HTML
     suffix: .html
-# Configuración adicional (opcional)
-logging:
-  level:
-    root: INFO
-
-    org.springframework.web: DEBUG

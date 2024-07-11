@@ -10,11 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RestController()
+@RequestMapping("/administrator")
 public class AuthController {
 
     private final UserService userService;
@@ -55,6 +55,6 @@ public class AuthController {
         }
         user.setActive(true);
         userService.saveUser(user);
-        return "redirect:/register?success";
+        return "redirect:/administrator/register?success";
     }
 }

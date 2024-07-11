@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -76,56 +77,11 @@ public class PropertyEntity {
     @Column(name = "energy_qualification")
     private String energyQualification;
 
-    @Column(name = "wardrobes")
-    private boolean wardrobes;
-
-    @Column(name = "air_conditioning")
-    private boolean airConditioning;
-
-    @Column(name = "balcony")
-    private boolean balcony;
-
-    @Column(name = "storage_room")
-    private boolean storageRoom;
-
-    @Column(name = "parking_place")
-    private boolean parkingPlace;
-
-    @Column(name = "pool")
-    private boolean pool;
-
-    @Column(name = "green_area")
-    private boolean greenArea;
-
-    @Column(name = "orientation_north")
-    private boolean orientationNorth;
-
-    @Column(name = "orientation_south")
-    private boolean orientationSouth;
-
-    @Column(name = "orientation_east")
-    private boolean orientationEast;
-
-    @Column(name = "orientation_west")
-    private boolean orientationWest;
-
     @Column(name = "contact_name")
     private String contactName;
 
     @Column(name = "contact_phone")
     private String contactPhone;
-
-    @Column(name = "cellphone")
-    private boolean cellphone;
-
-    @Column(name = "whatsapp")
-    private boolean whatsapp;
-
-    @Column(name = "email")
-    private boolean email;
-
-    @Column(name = "chat")
-    private boolean chat;
 
     @Column(name = "contact_postal_code")
     private String contactPostalCode;
@@ -154,6 +110,10 @@ public class PropertyEntity {
     @Column(name = "num_bathrooms")
     private int numBathrooms;
 
+    @OneToOne
+    @JoinColumn(name = "features_id")
+    private FeatureEntity features;
+
     @ManyToOne
     @JoinColumn(name = "property_contact_entity_id")
     private PropertyContactEntity propertyContact;
@@ -163,5 +123,4 @@ public class PropertyEntity {
 
     @OneToMany(mappedBy = "propertyEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContactFormEntity> contactFormEntities = new ArrayList<>();
-
 }

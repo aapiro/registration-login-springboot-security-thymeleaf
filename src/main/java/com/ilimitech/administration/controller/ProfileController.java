@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
+@RequestMapping("/administrator")
 public class ProfileController {
 
     private UserService userService;
@@ -26,6 +28,6 @@ public class ProfileController {
     @PostMapping("/profile")
     public String updateProfile(UserDto userDto) {
         userService.updateUser(userDto);
-        return "redirect:/profile?success";
+        return "redirect:/administrator/profile?success";
     }
 }
