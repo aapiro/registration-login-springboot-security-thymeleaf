@@ -19,7 +19,7 @@ public class AuthController {
 
     private final UserService userService;
 
-    @GetMapping("index")
+    @GetMapping("")
     public String home(){
         return "index";
     }

@@ -37,7 +37,7 @@ public class SpringSecurity {
                                 .requestMatchers("/administrator/index").permitAll()
                                 .requestMatchers("/administrator/captcha").permitAll()
                                 /**
-                                 * Realstate security begin
+                                 * Realstate security portal begin
                                  */
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/realstate/**").permitAll()
@@ -45,7 +45,14 @@ public class SpringSecurity {
                                 .requestMatchers("/search-property").permitAll()
                                 .requestMatchers("/property/contact").permitAll()
                                 /**
-                                 * Realstate security end
+                                 * Realstate security portal end
+                                 */
+                                /**
+                                 * Realstate security dashboard begin
+                                 */
+                                .requestMatchers("/dashboard/**").permitAll()
+                                /**
+                                 * Realstate security dashboard end
                                  */
                                 .requestMatchers("/administrator/users").hasRole("ADMIN")
                                 .requestMatchers("/administrator/edit/**", "/administrator/delete/**").hasRole("ADMIN")

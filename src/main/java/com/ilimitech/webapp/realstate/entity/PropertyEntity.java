@@ -35,9 +35,6 @@ public class PropertyEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "status")
-    private String status;
-
     @Column(name = "active")
     private boolean active;
 
@@ -67,9 +64,6 @@ public class PropertyEntity {
 
     @Column(name = "operation_type")
     private String operationType;
-
-    @Column(name = "property_type")
-    private String propertyType;
 
     @Column(name = "property_status")
     private String propertyStatus;
@@ -110,12 +104,20 @@ public class PropertyEntity {
     @Column(name = "num_bathrooms")
     private int numBathrooms;
 
+    @ManyToOne
+    @JoinColumn(name = "property_type_id")
+    private PropertyTypeEntity propertyType;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private StatusEntity status;
+
     @OneToOne
     @JoinColumn(name = "features_id")
     private FeatureEntity features;
 
     @ManyToOne
-    @JoinColumn(name = "property_contact_entity_id")
+    @JoinColumn(name = "property_contact_id")
     private PropertyContactEntity propertyContact;
 
     @OneToMany(mappedBy = "propertyEntity", cascade = CascadeType.ALL, orphanRemoval = true)

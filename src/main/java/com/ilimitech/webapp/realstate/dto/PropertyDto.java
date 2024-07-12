@@ -11,7 +11,7 @@ public class PropertyDto {
     private String title;
     private String imageUrl;
     private String description;
-    private String status;
+    private StatusDto status;
     private boolean active;
     private String type;
     private double price;
@@ -22,7 +22,6 @@ public class PropertyDto {
     private String addressWayNumber;
     private String addressPostalCode;
     private String operationType;
-    private String propertyType;
     private String propertyStatus;
     private String energyQualification;
     private boolean wardrobes;
@@ -51,6 +50,7 @@ public class PropertyDto {
     private double plotArea;
     private int numBedrooms;
     private int numBathrooms;
+    private PropertyTypeDto propertyType;
     private PropertyContactDto propertyContact;
     List<ImageDto> imageEntities;
 }

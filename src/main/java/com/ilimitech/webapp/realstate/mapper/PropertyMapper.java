@@ -20,6 +20,7 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface PropertyMapper {
+
     PropertyEntity toEntity(PropertyDto propertyDto);
 
     @AfterMapping

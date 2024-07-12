@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{dashboard/fragments/common-head :: dashboard-common-head}"></head>
+<head th:replace="~{realstate/dashboard/fragments/common-head :: dashboard-common-head}"></head>
 
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    <nav th:replace="~{dashboard/fragments/common-top-sidebar :: commonTopSidebarNav}"></nav>
+    <nav th:replace="~{realstate/dashboard/fragments/common-top-sidebar :: commonTopSidebarNav}"></nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
@@ -180,7 +180,7 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <nav th:replace="~{dashboard/fragments/common-sidebar :: commonSidebarNav}"></nav>
+      <nav th:replace="~{realstate/dashboard/fragments/common-sidebar :: commonSidebarNav}"></nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -206,455 +206,13 @@
                     <div class="btn-wrapper">
                       <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
                       <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
-                      <a th:href="@{/properties/new}" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
+                      <a th:href="@{/dashboard/properties/new}" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
                     </div>
                   </div>
                 </div>
                 <div class="tab-content tab-content-basic">
                   <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
-                    <div th:replace="~{dashboard/fragments/common-avg-row :: commonAvgRow}"></div>
-
-
-
-                    <div class="row">
-                      <div class="col-12 grid-margin">
-                        <div class="card">
-                          <div class="card-body">
-                            <h4 class="card-title">Anuncio Particular</h4>
-                            <form class="form-sample">
-                              <p class="card-description">
-                                Datos inmueble
-                              </p>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label>Elige el tipo de inmueble</label>
-                                    <div class="col-sm-9">
-                                      <select class="js-example-basic-single w-100">
-                                        <option>Casa</option>
-                                        <option>Casa de campo</option>
-                                        <option>Apartamento</option>
-                                        <option>Terreno</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label>Tipo Operacion</label>
-                                    <div class="col-sm-4">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked>
-                                          Venta
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-5">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2">
-                                          Alquiler
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <p class="card-description">
-                                Ubicacion del inmueble
-                              </p>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Localidad</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Nombre de la via</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Numero de via</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Codigo postal</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 grid-margin">
-                        <div class="card">
-                          <div class="card-body">
-                            <h4 class="card-title">Datos de contacto</h4>
-                            <form class="form-sample">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Nombre</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Telefono</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label>Tipo de contacto</label>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Chat interno
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Telefono
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          WhatsApp
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Email
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Codigo postal</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 grid-margin">
-                        <div class="card">
-                          <div class="card-body">
-                            <h4 class="card-title">Detalle del inmueble</h4>
-                            <form class="form-sample">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label>Tipo de casa</label>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios21" value="" checked>
-                                          Chalet independiente
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios22" value="option2">
-                                          Chalet pareado
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios23" value="option2">
-                                          Chalet adosado
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <label>Estado de la casa</label>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios31" value="" checked>
-                                          A estrenar
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios32" value="option2">
-                                          En buen estado
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios33" value="option2">
-                                          A reformar
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <div class="col">
-                                          <label>m² construidos</label>
-                                          <div id="the-basics">
-                                            <input class="typeahead" type="text" placeholder="m² construidos">
-                                          </div>
-                                        </div>
-                                        <div class="col">
-                                          <label>m² útiles (opcional)</label>
-                                          <div id="the-basics2">
-                                            <input class="typeahead" type="text" placeholder="m² útiles (opcional)">
-                                          </div>
-                                        </div>
-                                        <div class="col">
-                                          <label>m² de parcela (opcional)</label>
-                                          <div id="bloodhound">
-                                            <input class="typeahead" type="text" placeholder="m² de parcela (opcional)">
-                                          </div>
-                                        </div>
-                                      </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <div class="col">
-                                      <label>Número de habitaciones en la vivienda</label>
-                                      <div id="the-basics3">
-                                        <input class="typeahead" type="text" placeholder="Texto">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <label>Numero de baños y aseos</label>
-                                      <div id="the-basics23">
-                                        <input class="typeahead" type="text" placeholder="Texto">
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <div class="col-sm-5">
-                                        <label>Calificación de consumo de energía</label>
-                                        <select class="js-example-basic-single w-100">
-                                          <option>Aun no dispone</option>
-                                          <option>A</option>
-                                          <option>B</option>
-                                          <option>C</option>
-                                          <option>D</option>
-                                          <option>En tramite</option>
-                                        </select>
-                                      </div>
-                                      <div class="col-sm-5">
-                                        <label>Número de habitaciones en la vivienda</label>
-                                        <div id="num-viviendas">
-                                          <input class="typeahead" type="text" placeholder="Texto">
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                      <label>Orientación (opcional)</label>
-                                      <div class="col-sm-3">
-                                        <div class="form-check">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            Norte
-                                          </label>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-3">
-                                        <div class="form-check">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            Sur
-                                          </label>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-3">
-                                        <div class="form-check">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            Este
-                                          </label>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-3">
-                                        <div class="form-check">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            Oeste
-                                          </label>
-                                        </div>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group row">
-                                    <label>Otras características de tu chalet</label>
-                                    <div class="col-sm-2">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Armarios empotrados
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Aire acondicionado
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Balcón
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Trastero
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Plaza de garaje incluida en el precio
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Plaza de garaje incluida en el precio
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Piscina
-                                        </label>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                      <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input">
-                                          Zona verde
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <h4 class="card-title">Precio del inmueble</h4>
-                                    <div class="col">
-                                      <label class="col-sm-3 col-form-label">Precio</label>
-                                      <div id="property-price">
-                                        <input class="typeahead" type="text" placeholder="Euros">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <label class="col-sm-9 col-form-label">Gastos de comunidad (opcional)</label>
-                                      <div id="community-bill">
-                                        <input class="typeahead" type="text" placeholder="Euros/mes">
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group row">
-                                    <h4 class="card-title">Descripcion</h4>
-                                    <div class="col-sm-12">
-                                      <input type="text" class="form-control form-control-lg" placeholder="Descripcion" aria-label="Descripcion"/>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
-
-
-
+                    <div th:replace="~{realstate/dashboard/fragments/common-avg-row :: commonAvgRow}"></div>
 
                     <div class="row">
                       <div class="col-lg-8 d-flex flex-column">
@@ -1243,7 +801,7 @@
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        <footer th:replace="~{dashboard/fragments/common-footer :: commonFooterFragment}"></footer>
+        <footer th:replace="~{realstate/dashboard/fragments/common-footer :: commonFooterFragment}"></footer>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
@@ -1252,7 +810,7 @@
   </div>
   <!-- container-scroller -->
 
-  <th:block th:replace="~{dashboard/fragments/common-scripts :: commonScripts}"></th:block>
+  <th:block th:replace="~{realstate/dashboard/fragments/common-scripts :: commonScripts}"></th:block>
 
 </body>
 

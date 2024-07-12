@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -16,8 +18,8 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Setter
 @Entity
-@Table(name = "portal_generic_images")
-public class PortalGenericImageEntity {
+@Table(name = "generic_images")
+public class GenericImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "portal_generic_images_id_gen")
     @SequenceGenerator(name = "portal_generic_images_id_gen", allocationSize = 1)
@@ -44,5 +46,9 @@ public class PortalGenericImageEntity {
     @ColumnDefault("true")
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
 
 }

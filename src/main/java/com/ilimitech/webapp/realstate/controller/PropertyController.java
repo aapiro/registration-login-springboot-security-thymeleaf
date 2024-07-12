@@ -107,7 +107,6 @@ public class PropertyController {
             return mav;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
-
             return mav;
         }
     }

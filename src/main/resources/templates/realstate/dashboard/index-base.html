@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{dashboard/fragments/common-head :: dashboard-common-head}"></head>
+<head th:replace="~{realstate/dashboard/fragments/common-head :: dashboard-common-head}"></head>
 
 <body>
 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    <nav th:replace="~{dashboard/fragments/common-top-sidebar :: commonTopSidebarNav}"></nav>
+    <nav th:replace="~{realstate/dashboard/fragments/common-top-sidebar :: commonTopSidebarNav}"></nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_settings-panel.html -->
@@ -180,7 +180,7 @@
         </div>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
-        <nav th:replace="~{dashboard/fragments/common-sidebar :: commonSidebarNav}"></nav>
+        <nav th:replace="~{realstate/dashboard/fragments/common-sidebar :: commonSidebarNav}"></nav>
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
@@ -190,7 +190,7 @@
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->
-            <footer th:replace="~{dashboard/fragments/common-footer :: commonFooterFragment}"></footer>
+            <footer th:replace="~{realstate/dashboard/fragments/common-footer :: commonFooterFragment}"></footer>
             <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -199,7 +199,7 @@
 </div>
 <!-- container-scroller -->
 
-<th:block th:replace="~{dashboard/fragments/common-scripts :: commonScripts}"></th:block>
+<th:block th:replace="~{realstate/dashboard/fragments/common-scripts :: commonScripts}"></th:block>
 
 </body>
 
