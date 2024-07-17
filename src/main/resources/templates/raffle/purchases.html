@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Purchases</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>My Purchases</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Raffle Number</th>
+        <th>Raffle</th>
+        <th>State</th>
+        <th>Purchase Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="purchase : ${purchases}">
+        <td th:text="${purchase.id}">1</td>
+        <td th:text="${purchase.raffleNumber.number}">00</td>
+        <td th:text="${purchase.raffleNumber.raffle.description}">Description</td>
+        <td th:text="${purchase.state}">Completed</td>
+        <td th:text="${purchase.purchaseDate}">Date</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

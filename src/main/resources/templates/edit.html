@@ -15,8 +15,8 @@
 <div class="container">
     <div class="row">
         <h2>Edit User</h2>
-        <form th:action="@{/edit}" th:object="${user}" method="post">
-            <input type="hidden" th:value="${user.id}" name="id" />
+        <form th:action="@{/edit}" th:object="${userEntity}" method="post">
+            <input type="hidden" th:value="${userEntity.id}" name="id" />
             <div class="mb-3">
                 <label for="name" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="userName" th:field="*{userName}">

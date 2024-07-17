@@ -2,17 +2,23 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:latest
-    container_name: mysql_container
+    image: mysql:8.0
+    restart: always
+    container_name: registrationlogindemo.raffleapp-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 1243
-      MYSQL_DATABASE: jcodeappbase
+      MYSQL_DATABASE: raffledb
+      MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: admin
-      MYSQL_PASSWORD: 1243
+      MYSQL_PASSWORD: 123456
     ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+      - 3306:3306
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   postgres:
     image: postgres:13

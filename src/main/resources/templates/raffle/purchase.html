@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Purchase Raffle Number</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Purchase Raffle Number</h1>
+<form action="#" th:action="@{/purchases/buy}" method="post">
+    <input type="hidden" name="raffleNumberId" th:value="${raffleNumber.id}">
+    <div>
+        <label for="number">Number:</label>
+        <input type="text" id="number" th:value="${raffleNumber.number}" readonly>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="text" id="price" th:value="${raffleNumber.raffle.price}" readonly>
+    </div>
+    <div>
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId">
+    </div>
+    <div>
+        <button type="submit">Buy</button>
+    </div>
+</form>
+</body>
+</html>
