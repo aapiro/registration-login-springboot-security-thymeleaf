@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
-  <title>Spring Boot Image Upload example</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
+<!--<head>-->
+<!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+<!--  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />-->
+<!--  <title>Spring Boot Image Upload example</title>-->
+<!--  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.css}" />-->
+<!--  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>-->
+<!--  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>-->
+  <head th:replace="~{realstate/dashboard/fragments/common-head :: dashboard-common-head}"><title>Titulo</title></head>
+
+<!--</head>-->
 
 <body>
-  <div th:replace="dashboard/fragments/header :: header"></div>
+<div class="container-scroller">
+  <nav th:replace="~{realstate/dashboard/fragments/common-top-sidebar :: commonTopSidebarNav}"></nav>
 
   <div class="container" style="max-width: 500px">
     <h3 class="mb-3">Spring Boot Image Upload example</h3>
@@ -37,8 +40,11 @@
       </button>
     </div>
   </div>
+  <footer th:replace="~{realstate/dashboard/fragments/common-footer :: commonFooterFragment}"></footer>
+</div>
+  <th:block th:replace="~{realstate/dashboard/fragments/common-scripts :: commonScripts}"></th:block>
 
-  <div th:replace="dashboard/fragments/footer :: footer"></div>
+<!--  <div th:replace="dashboard/fragments/footer :: footer"></div>-->
 </body>
 
 </html>

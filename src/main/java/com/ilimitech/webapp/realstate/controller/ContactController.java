@@ -30,10 +30,9 @@ public class ContactController {
 
             contactFormEntityRepository.save(contactFormMapper.toEntity(contactForm,propertyService));
             redirectAttributes.addFlashAttribute("successMessage", "Formulario enviado con éxito");
-            return mav;
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid Captcha");
-            return mav;
         }
+        return mav;
     }
 }

@@ -95,6 +95,7 @@
                     <div class="wow fadeInUp" data-wow-delay="0.5s">
                         <p class="mb-4">Texto ramdom. <a href="#">Download Now</a>.</p>
                         <!-- Mostrar mensaje de éxito -->
+<!--                        SUCCESS CAPTCHA-->
                         <div th:if="${successMessage}" th:text="${successMessage}" style="color: green;"></div>
 
                         <form th:action="@{/property/contact}" method="post" th:object="${form}">
@@ -132,6 +133,7 @@
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
+<!--                                BEGIN CAPTCHA-->
                                 <div class="col-12">
                                     <!-- Mostrar mensaje de error -->
                                     <div th:if="${errorMessage}" th:text="${errorMessage}"
@@ -148,9 +150,12 @@
                                     <label>ENTER CAPTCHA</label>
                                     <div class="form-floating">
                                         <input type="hidden" th:field="*{hiddenCaptcha}"/>
-                                        <input type="text" th:field="*{captcha}" class="form-control"/>
+                                        <label>
+                                            <input type="text" th:field="*{captcha}" class="form-control"/>
+                                        </label>
                                     </div>
                                 </div>
+<!--                                END CAPTCHA-->
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
                                 </div>

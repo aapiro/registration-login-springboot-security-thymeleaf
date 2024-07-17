@@ -1,5 +1,5 @@
-package com.ilimitech.webapp.realstate.exception;//package com.ilimitech.webapp.realstate.frontend.exception;
-//
+//package com.ilimitech.webapp.realstate.exception;//package com.ilimitech.webapp.realstate.frontend.exception;
+////
 //import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.ControllerAdvice;
 //import org.springframework.web.bind.annotation.ExceptionHandler;
