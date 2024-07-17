@@ -137,7 +137,6 @@ public class PropertyController {
     }
     @PostMapping("/property/save")
     public ModelAndView saveProperty(PropertyDto propertyDto) {
-//    public String saveProperty(PropertyDto propertyDto, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("realstate/dashboard/images");
         try {
             System.out.printf("PROPIEDAD A GUARDAR: "+ propertyDto.toString());
@@ -149,13 +148,9 @@ public class PropertyController {
             mav.addObject("userId",String.valueOf(userId));
             mav.addObject("itemId",String.valueOf(itemId));
             mav.addObject("imageServerUrl",imageServerUrl);
-//            redirectAttributes.addFlashAttribute("message", "The PropertyFrontendEntity has been saved successfully!");
         } catch (Exception e) {
             log.error(e.toString());
-
-//            redirectAttributes.addAttribute("message", e.getMessage());
         }
-//        return "redirect:/property/new";
         return mav;
     }
     private List<LocationDto> getLocations() {

@@ -40,7 +40,6 @@ public class UserController {
 
     @PostMapping("/edit")
     public String editUser(@ModelAttribute UserDto user) {
-        // Lógica para actualizar el usuario
         userService.updateUser(user);
         return "redirect:/users"; // Redirige a la página de usuarios registrados
     }

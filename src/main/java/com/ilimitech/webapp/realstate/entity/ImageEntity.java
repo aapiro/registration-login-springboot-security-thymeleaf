@@ -30,9 +30,13 @@ public class ImageEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "front_page")
+    private boolean frontPage;
+
     @ManyToOne
     @JoinColumn(name = "property_entity_id")
     private PropertyEntity propertyEntity;
+
 
     public ImageEntity() {
     }

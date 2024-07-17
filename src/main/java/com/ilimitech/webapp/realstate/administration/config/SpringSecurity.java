@@ -74,7 +74,7 @@ public class SpringSecurity {
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
 //                                .successForwardUrl("/users")
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/dashboard/", true)
                                 .permitAll()
                 ).logout(
                         logout -> logout

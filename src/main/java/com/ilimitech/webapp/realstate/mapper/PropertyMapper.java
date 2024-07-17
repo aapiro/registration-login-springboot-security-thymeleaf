@@ -2,6 +2,7 @@ package com.ilimitech.webapp.realstate.mapper;
 
 import com.ilimitech.webapp.realstate.dto.ImageDto;
 import com.ilimitech.webapp.realstate.dto.PropertyDto;
+import com.ilimitech.webapp.realstate.entity.ImageEntity;
 import com.ilimitech.webapp.realstate.entity.PropertyEntity;
 import com.ilimitech.webapp.realstate.dto.PropertyTypeDto;
 import com.ilimitech.webapp.realstate.entity.PropertyTypeEntity;
@@ -21,7 +22,8 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface PropertyMapper {
 
-    PropertyEntity toEntity(PropertyDto propertyDto);
+    @Mapping(target = "email", source = "dto..email")
+    PropertyEntity toEntity(PropertyDto dto);
 
     @AfterMapping
     default void linkImages(@MappingTarget PropertyEntity propertyEntity) {
@@ -29,8 +31,14 @@ public interface PropertyMapper {
     }
 
     //    @Mapping(target = "ignoredField", ignore = true)
+    @Mapping(target = "frontPage", expression = "java(getFrontPageImage(propertyEntity))")
     PropertyDto toDto(PropertyEntity propertyEntity);
 
+    default ImageDto getFrontPageImage(PropertyEntity propertyEntity) {
+        ImageEntity imageEntity = propertyEntity.getImageEntities().stream().filter(ImageEntity::isFrontPage).findFirst()
+                .orElse(ImageEntity.builder().build());
+        return ImageDto.builder().id(imageEntity.getId()).name(imageEntity.getName()).imageUrl(imageEntity.getImageUrl()).build();
+    }
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     PropertyEntity partialUpdate(PropertyDto propertyDto, @MappingTarget PropertyEntity propertyEntity);
 

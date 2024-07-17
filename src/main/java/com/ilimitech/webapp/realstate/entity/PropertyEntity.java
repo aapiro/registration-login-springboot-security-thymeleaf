@@ -65,26 +65,17 @@ public class PropertyEntity {
     @Column(name = "operation_type")
     private String operationType;
 
-    @Column(name = "property_status")
-    private String propertyStatus;
+//    @Column(name = "property_status")
+//    private String propertyStatus;
 
     @Column(name = "energy_qualification")
-    private String energyQualification;
-
-    @Column(name = "contact_name")
-    private String contactName;
-
-    @Column(name = "contact_phone")
-    private String contactPhone;
-
-    @Column(name = "contact_postal_code")
-    private String contactPostalCode;
+    private String energyQualification;//todo crear tabla de energy qualification
 
     @Column(name = "house_type")
-    private String houseType;
+    private String houseType;//todo crear tabla de house type y relacionarla
 
     @Column(name = "house_condition")
-    private String houseCondition;
+    private String houseCondition;//todo crear tabla de house condition y relacionarla
 
     @Column(name = "map_url", length = 500)
     private String mapUrl;

@@ -30,9 +30,11 @@ public class UserServiceImpl implements UserService {
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByName("ROLE_ADMIN");//todo cambiar esto para que solo se puede crear usuarios como admin a los que sean clave
-        if(role == null){
-            role = checkRoleExist();
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        if (role == null) {
+            role = createRole("ROLE_ADMIN");
+        } else {
+            role = createRole("APP_USER");
         }
         user.setRoles(List.of(role));
         userRepository.save(user);
@@ -87,9 +89,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow());
     }
 
-    private Role checkRoleExist() {
-        Role role = new Role();
-        role.setName("ROLE_ADMIN");
-        return roleRepository.save(role);
+    private Role createRole(String rolToCreate) {
+        return roleRepository.save(Role.builder()
+                .name(rolToCreate)
+                .build());
     }
 }

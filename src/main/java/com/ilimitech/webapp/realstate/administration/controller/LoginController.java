@@ -40,7 +40,7 @@ public class LoginController {
     public ModelAndView registration(@Valid @ModelAttribute("user") UserDto user,
                                      BindingResult result,
                                      RedirectAttributes redirectAttributes) {
-//        User existing = userService.findByUserNameOrEmail(user.getUserName(),user.getEmail());
+
         if (user.getCaptcha().equals(user.getHiddenCaptcha())) {
 
             ModelAndView mavError = validateInput(user, result, redirectAttributes);
@@ -51,14 +51,11 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("successMessage", "Usuario registrado con éxito");
             return new ModelAndView("redirect:/login?success");
         } else {
-//            ModelAndView mav = new ModelAndView("redirect:/register");
             ModelAndView mav = new ModelAndView("/register");
             CaptchaUtil.getCaptcha(user);
             mav.addObject("user", user);
             mav.addObject("captchaErrorMessage", "Invalid Captcha");
-//            redirectAttributes.addFlashAttribute("captchaErrorMessage", "Invalid Captcha");
             return mav;
-//            return errorInRegistration("captchaErrorMessage",user, redirectAttributes, "There is already an account registered with that userName");
         }
     }
 
