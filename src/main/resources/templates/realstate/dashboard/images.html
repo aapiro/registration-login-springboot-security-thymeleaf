@@ -1,104 +1,108 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<!--<head>-->
-<!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-<!--  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />-->
-<!--  <title>Spring Boot Image Upload example</title>-->
-
-<!--  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />-->
-<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"-->
-<!--        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="-->
-<!--        crossorigin="anonymous" referrerpolicy="no-referrer" />-->
-<!--  &lt;!&ndash;  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.2/css/bootstrap.min.css} "/>&ndash;&gt;-->
-
-<!--  <link th:rel="stylesheet" th:href="@{/assets/dropzonejs/dropzone.css}"/>-->
-<!--  <link th:rel="stylesheet" th:href="@{/assets/toastr/toastr.min.css}"/>-->
-
-<!--  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>-->
-<!--  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>-->
-<!--</head>-->
-<head th:replace="~{realstate/dashboard/fragments/common-head :: dashboard-common-head}"><title>Titulo</title></head>
+<head th:replace="~{realstate/dashboard/fragments/common-head :: dashboard-common-head}"><title>Title</title></head>
 
 <body>
 <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
     <nav th:replace="~{realstate/dashboard/fragments/common-top-sidebar :: commonTopSidebarNav}"></nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav th:replace="~{realstate/dashboard/fragments/common-sidebar :: commonSidebarNav}"></nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <td>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                <p class="text-success">100%</p>
+                                <!--                                        <p>85/162</p>-->
+                            </div>
+                            <div class="progress progress-md">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="badge badge-opacity-warning">Ultimo paso subir imagenes</div>
+                    </td>
+                    <div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
+                        <div id="dropzone">
+                            <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId}}" class="dropzone needsclick" id="demo-upload" method="post">
+                                <div class="dz-message needsclick">
+                                    <button type="button" class="dz-button">Drop images here or click to upload (max size 5mb).</button>
+                                    <br/>
+                                </div>
+                            </form>
+                        </div>
 
-    <!--<div th:replace="fragments/header :: header"></div>-->
+                        <h2 class="text-center">List of Images</h2>
 
-    <!-- <div class="container-fluid" style="max-width: 600px; margin: 0 auto;">-->
+                        <div id="imageTableContainer">
+                            <table class="table table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">File Name</th>
+                                    <th scope="col">Link</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="image : ${images}">
+                                    <td><img th:src="@{${image.url}}" alt="${image.name}" height="60px" /></td>
+                                    <td>[[${image.name}]]</td>
+                                    <td><a th:href="@{${image.url}}">Download</a></td>
+                                    <td>
+                                        <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${image.name}}" th:fileName="${image.name}" id="btnDelete"
+                                           title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-    <div id="dropzone">
-        <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId}}" class="dropzone needsclick"
-              id="demo-upload">
+                    <div class="modal fade text-center" id="confirmModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
 
-            <div class="dz-message needsclick">
-                <button type="button" class="dz-button">Drop images here or click to upload (max size 5mb).</button>
-                <br/>
+                                <div class="modal-body">
+                                    <span id="confirmText"></span>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="userId" th:value="${userId}"/>
+                        <input type="hidden" id="itemId" th:value="${itemId}"/>
+                    </div>
+                </div>
             </div>
-
-        </form>
-    </div>
-
-    <h2 class="text-center">List of Images</h2>
-
-    <div id="imageTableContainer">
-        <table class="table table-hover">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Image</th>
-                <th scope="col">File Name</th>
-                <th scope="col">Link</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="imageEntity : ${images}">
-                <td><img th:src="@{${imageEntity.url}}" alt="${imageEntity.name}" height="60px"/></td>
-                <td>[[${imageEntity.name}]]</td>
-                <td><a th:href="@{${imageEntity.url}}">Download</a></td>
-                <td>
-                    <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${imageEntity.name}}"
-                       th:fileName="${imageEntity.name}" id="btnDelete"
-                       title="Delete this imageEntity" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--</div>-->
-
-    <div class="modal fade text-center" id="confirmModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <span id="confirmText"></span>
-                </div>
-
-                <div class="modal-footer">
-                    <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                </div>
-            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer th:replace="~{realstate/dashboard/fragments/common-footer :: commonFooterFragment}"></footer>
+            <!-- partial -->
         </div>
-        <input type="hidden" id="userId" th:value="${userId}"/>
-        <input type="hidden" id="itemId" th:value="${itemId}"/>
+        <!-- main-panel ends -->
     </div>
+    <!-- page-body-wrapper ends -->
 </div>
-<!--<div th:replace="fragments/footer :: footer"></div>-->
-
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/dropzonejs/dropzone.min.js}"></script>
-<script th:src="@{/assets/toastr/toastr.min.js}"></script>
+<!-- container-scroller -->
+<th:block th:replace="~{realstate/dashboard/fragments/common-scripts :: commonScripts}"></th:block>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -125,12 +129,12 @@
                 var tableBody = '';
 
                 if (images.length > 0) {
-                    images.forEach(imageEntity => {
+                    images.forEach(image => {
                         tableBody += '<tr>';
-                        tableBody += '<td><img src="' + imageEntity.url + '" alt="' + imageEntity.name + '" height="60px" /></td>';
-                        tableBody += '<td>' + imageEntity.name + '</td>';
-                        tableBody += '<td><a href="' + imageEntity.url + '">Download</a></td>';
-                        tableBody += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId + '/file/' + imageEntity.name + '" fileName="' + imageEntity.name + '" id="btnDelete" title="Delete this imageEntity" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
+                        tableBody += '<td><img src="' + image.url + '" alt="' + image.name + '" height="60px" /></td>';
+                        tableBody += '<td>' + image.name + '</td>';
+                        tableBody += '<td><a href="' + image.url + '">Download</a></td>';
+                        tableBody += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId + '/file/' + image.name + '" fileName="' + image.name + '" id="btnDelete" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
                         tableBody += '</tr>';
                     });
                 } else {
@@ -157,5 +161,4 @@
 </script>
 
 </body>
-
 </html>

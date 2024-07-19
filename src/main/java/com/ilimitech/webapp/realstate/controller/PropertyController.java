@@ -2,11 +2,11 @@ package com.ilimitech.webapp.realstate.controller;
 
 import com.github.javafaker.Faker;
 import com.ilimitech.webapp.realstate.bff.PropertyDetailResponse;
+import com.ilimitech.webapp.realstate.bff.PropertyFormRequest;
 import com.ilimitech.webapp.realstate.dto.ContactFormDto;
 import com.ilimitech.webapp.realstate.dto.LocationDto;
 import com.ilimitech.webapp.realstate.dto.PropertyDto;
 import com.ilimitech.webapp.realstate.dto.PropertyTypeDto;
-import com.ilimitech.webapp.realstate.entity.PropertyEntity;
 import com.ilimitech.webapp.realstate.mapper.PropertyMapper;
 import com.ilimitech.webapp.realstate.mapper.PropertyTypeMapper;
 import com.ilimitech.webapp.realstate.service.PortalService;
@@ -115,6 +115,7 @@ public class PropertyController {
     }
     @GetMapping("/property/list")
     public ModelAndView getAllProperties() {
+
         return new ModelAndView("realstate/dashboard/property-list");
     }
 
@@ -122,8 +123,8 @@ public class PropertyController {
     public ModelAndView addProperty2() {
         ModelAndView mav = new ModelAndView("realstate/dashboard/property-form");
         List<String> propertyTypeOptions = Arrays.asList("Option 1", "Option 2", "Option 3");
-        PropertyDto propertyDto = new PropertyDto();
-        mav.addObject("propertyDto", propertyDto);
+        PropertyFormRequest propertyReq = new PropertyFormRequest();
+        mav.addObject("propertyReq", propertyReq);
         mav.addObject("pageTitle", "Create new PropertyFrontendEntity");
         mav.addObject("propertyTypeOptions", propertyTypeOptions);
         mav.addObject("propertyRadioOptions", propertyTypeOptions);
@@ -136,15 +137,16 @@ public class PropertyController {
         return mav;
     }
     @PostMapping("/property/save")
-    public ModelAndView saveProperty(PropertyDto propertyDto) {
+    public ModelAndView saveProperty(PropertyFormRequest propertyFormRequest) {
         ModelAndView mav = new ModelAndView("realstate/dashboard/images");
         try {
-            System.out.printf("PROPIEDAD A GUARDAR: "+ propertyDto.toString());
+            System.out.printf("PROPIEDAD A GUARDAR: "+ propertyFormRequest.toString());
 
-            PropertyEntity propertyEntity = propertyService.saveProperty(propertyDto);
+//            PropertyEntity propertyEntity = propertyService.saveProperty(propertyDto);
             long userId = 1;
-            long itemId = propertyEntity.getId();
-            String imageServerUrl = "http://localhost:8081";
+            long itemId = 1;
+//            long itemId = propertyEntity.getId();
+            String imageServerUrl = "/images";
             mav.addObject("userId",String.valueOf(userId));
             mav.addObject("itemId",String.valueOf(itemId));
             mav.addObject("imageServerUrl",imageServerUrl);

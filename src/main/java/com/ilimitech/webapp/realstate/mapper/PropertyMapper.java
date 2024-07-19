@@ -22,7 +22,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface PropertyMapper {
 
-    @Mapping(target = "email", source = "dto..email")
+//    @Mapping(target = "email", source = "dto.email")
     PropertyEntity toEntity(PropertyDto dto);
 
     @AfterMapping

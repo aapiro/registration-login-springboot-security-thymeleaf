@@ -31,6 +31,15 @@ public class SpringSecurity {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((authorize) ->
                         authorize
+                                /**
+                                 * Statics resources like css and js begin
+                                 */
+                                .requestMatchers("/realstate/**").permitAll()
+                                .requestMatchers("/assets/**").permitAll()
+                                .requestMatchers("/webjars/**").permitAll()
+                                /**
+                                 * Statics resources like css and js end
+                                 */
                                 .requestMatchers("/administrator/index").permitAll()
                                 /**
                                  * Login Controller begin
@@ -47,8 +56,8 @@ public class SpringSecurity {
                                  * Realstate security portal begin
                                  */
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/realstate/**").permitAll()
                                 .requestMatchers("/property/**").permitAll()
+                                .requestMatchers("/property/save").permitAll()
                                 .requestMatchers("/search-property").permitAll()
                                 .requestMatchers("/property/contact").permitAll()
                                 /**

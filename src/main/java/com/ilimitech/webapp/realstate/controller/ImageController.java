@@ -1,10 +1,17 @@
 package com.ilimitech.webapp.realstate.controller;
 
+import com.ilimitech.webapp.realstate.dto.ImageDto;
 import com.ilimitech.webapp.realstate.dto.ImageInfoDto;
+import com.ilimitech.webapp.realstate.dto.PropertyDto;
+import com.ilimitech.webapp.realstate.mapper.PropertyMapper;
+import com.ilimitech.webapp.realstate.repository.PropertyRepository;
 import com.ilimitech.webapp.realstate.service.FilesStorageService;
+import com.ilimitech.webapp.realstate.service.PropertyService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,98 +23,67 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
+@AllArgsConstructor
 public class ImageController {
 
     @Autowired
-    FilesStorageService storageService;
+    private FilesStorageService storageService;
 
-//  @GetMapping("/")
-//  public String homepage() {
-//    return "redirect:/images";
-//  }
+    private final Path root = Paths.get("./uploaded-images");
+    public static final String DOT = ".";
+    private final PropertyService propertyService;
+    private final PropertyRepository propertyRepository;
+    private final PropertyMapper mapper;
 
-    @GetMapping("/images/new")
-    public String newImage(Model model) {
-        return "realstate/dashboard/images";
-    }
+    @PostMapping("/upload/user/{userId}/item/{itemId}")
+    public ResponseEntity<String> handleFileUpload(
+            @PathVariable("userId") String userId,
+            @PathVariable("itemId") String itemId,
+            @RequestParam("file") MultipartFile file) {
 
-    @PostMapping("/images/upload")
-    public String uploadImage(Model model, @RequestParam("file") MultipartFile file) {
-        String message = "";
-
-        try {
-            storageService.save(file);
-
-            message = "Uploaded the image successfully: " + file.getOriginalFilename();
-            model.addAttribute("message", message);
-        } catch (Exception e) {
-            message = "Could not upload the image: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
-            model.addAttribute("message", message);
+        if (file.isEmpty()) {
+            return new ResponseEntity<>("File is empty", HttpStatus.BAD_REQUEST);
         }
 
-        return "realstate/dashboard/upload_form";
+        try {
+            Path path = saveFile(Paths.get(root.toString(), "user", userId, "item", itemId).toString(), file);
+            PropertyDto propertyDto = mapper.toDto(propertyRepository.findById(Long.parseLong(userId)).get());
+            propertyDto.getImageEntities().add(ImageDto.builder().name(path.toString()).build());
+            propertyService.saveProperty(propertyDto);
+            byte[] bytes = file.getBytes();
+            String message = String.format("User: %s, Item: %s, File: %s, Size: %d bytes",
+                    userId, itemId, file.getOriginalFilename(), bytes.length);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+
+        } catch (IOException e) {
+            return new ResponseEntity<>("Failed to read the file", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @GetMapping("/images/user/{userId}/item/{itemId}")
-    public String getListImages(@PathVariable String userId,
-                                @PathVariable String itemId,
-            Model model) {
-        List<ImageInfoDto> imageInfoDtos = storageService.loadAllByUserIdAndItemId(Long.parseLong(userId), Long.parseLong(itemId))
-                .map(path -> {
-                    String filename = path.getFileName().toString();
-                    String url = MvcUriComponentsBuilder
-                            .fromMethodName(ImageController.class, "getImage", userId, itemId, path.getFileName().toString()).build().toString();
-
-//                    List<ImageInfoDto> imageInfoDtos = storageService.loadAll().map(path -> {
-//            String filename = path.getFileName().toString();
-//            String url = MvcUriComponentsBuilder
-//                    .fromMethodName(ImageController.class, "getImage", path.getFileName().toString()).build().toString();
-
-            return new ImageInfoDto(filename, url);
-        }).collect(Collectors.toList());
-
-        model.addAttribute("images", imageInfoDtos);
-        model.addAttribute("message", imageInfoDtos);
-
-        return "realstate/dashboard/images";
-    }
-
-    @GetMapping("/imagesAjax")
     @ResponseBody
-    public List<ImageInfoDto> getImages() {
-        return storageService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(ImageController.class, "getImage", path.getFileName().toString()).build().toString();
-
-            return new ImageInfoDto(filename, url);
-        }).collect(Collectors.toList());
-    }
-
     @GetMapping("/imagesAjax/user/{userId}/item/{itemId}")
-    @ResponseBody
     public List<ImageInfoDto> getImagesByUserIdAndItemId(
             @PathVariable("userId") String userId,
             @PathVariable("itemId") String itemId) {
-        return storageService.loadAllByUserIdAndItemId(Long.parseLong(userId), Long.parseLong(itemId))
-                .map(path -> {
-                    String filename = path.getFileName().toString();
-                    String url = MvcUriComponentsBuilder
-                            .fromMethodName(ImageController.class, "getImage", userId, itemId, path.getFileName().toString()).build().toString();
-
-                    return new ImageInfoDto(filename, url);
-                }).collect(Collectors.toList());
+        return getImageInfoDtos(userId, itemId);
     }
 
     @GetMapping("/images/user/{userId}/item/{itemId}/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String userId,
                                              @PathVariable String itemId,
                                              @PathVariable String filename) {
-        Resource file = storageService.loadByUserIdAndItemId(filename, userId, itemId);
+        Resource file = storageService.loadByUserIdAndItemId(root, filename, userId, itemId);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
@@ -117,17 +93,40 @@ public class ImageController {
     public String deleteImage(@PathVariable String userId,
                               @PathVariable String itemId,
                               @PathVariable String filename, Model model) {
-            boolean existed = storageService.delete(userId, itemId, filename);
-        List<ImageInfoDto> imageInfoDtos = storageService.loadAllByUserIdAndItemId(Long.parseLong(userId), Long.parseLong(itemId))
-                .map(path -> {
-                    String filenameLeft = path.getFileName().toString();
-                    String url = MvcUriComponentsBuilder
-                            .fromMethodName(ImageController.class, "getImage", userId, itemId, path.getFileName().toString()).build().toString();
-                    return new ImageInfoDto(filenameLeft, url);
-                }).collect(Collectors.toList());
+        boolean existed = storageService.delete(root, userId, itemId, filename);
+        List<ImageInfoDto> imageInfoDtos = getImageInfoDtos(userId, itemId);
         model.addAttribute("images", imageInfoDtos);
         model.addAttribute("userId", userId);
         model.addAttribute("itemId", itemId);
         return "realstate/dashboard/images";
+    }
+
+    private List<ImageInfoDto> getImageInfoDtos(String userId, String itemId) {
+        return storageService.loadAllByUserIdAndItemId(root, Long.parseLong(userId), Long.parseLong(itemId))
+                .map(path -> {
+                    String filename = path.getFileName().toString();
+                    String url = MvcUriComponentsBuilder
+                            .fromMethodName(ImageController.class, "getImage", userId, itemId, path.getFileName().toString()).build().toString();
+
+                    return new ImageInfoDto(filename, url);
+                }).collect(Collectors.toList());
+    }
+
+    private Path saveFile(String uploadDir, MultipartFile file) throws IOException {
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        Path path = Paths.get(uploadDir, UUID.randomUUID() + DOT + Objects.requireNonNull(getFileExtension(file)));
+        return Files.write(path, file.getBytes());
+    }
+
+    public String getFileExtension(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename != null && originalFilename.contains(".")) {
+            return originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        }
+        return ""; // Retornar una cadena vacía si no hay extensión
     }
 }
