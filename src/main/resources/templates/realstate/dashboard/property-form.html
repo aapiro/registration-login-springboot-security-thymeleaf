@@ -36,6 +36,7 @@
                                 <h4 class="card-title">Anuncio Particular</h4>
                                 <form class="form-sample" th:action="@{/property/save}" th:object="${propertyReq}"
                                       method="post">
+<!--                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                                     <p class="card-description">Datos inmueble</p>
                                     <div class="row">
 

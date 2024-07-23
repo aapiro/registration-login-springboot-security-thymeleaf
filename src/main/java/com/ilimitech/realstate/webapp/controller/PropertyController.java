@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -129,7 +130,7 @@ public class PropertyController {
 
         ModelAndView mav = new ModelAndView("realstate/dashboard/property-form");
         List<String> propertyTypeOptions = Arrays.asList("Option 1", "Option 2", "Option 3");
-        PropertyFormRequest propertyReq = new PropertyFormRequest();
+        PropertyFormRequest propertyReq = PropertyFormRequest.builder().build();
         mav.addObject("propertyReq", propertyReq);
         mav.addObject("pageTitle", "Create new PropertyFrontendEntity");
         mav.addObject("propertyTypeOptions", propertyTypeOptions);
@@ -143,7 +144,15 @@ public class PropertyController {
         return mav;
     }
     @PostMapping("/property/save")
-    public ModelAndView saveProperty(@Valid @ModelAttribute("propertyFormRequest") PropertyFormRequest propertyFormRequest) {
+    public ModelAndView saveProperty(@Valid @ModelAttribute("propertyReq") PropertyFormRequest propertyFormRequest,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            log.error("ERROR LIST: {}", result.getAllErrors());
+            ModelAndView mav = this.getFormForAddProperty();
+            mav.addObject("propertyReq", propertyFormRequest);
+            return mav;
+        }
         ModelAndView mav = new ModelAndView("realstate/dashboard/images");
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -151,9 +160,9 @@ public class PropertyController {
             UserDetails userDetails = (UserDetails) principal;
 
             PropertyDto dto = propertyMapper.toDto(propertyFormRequest);
-            PropertyEntity propertyEntity = propertyService.saveProperty(dto, userDetails);
+            PropertyEntity propertyEntity = propertyService.createProperty(dto, userDetails);
             String imageServerUrl = "/images";
-            String userId = String.valueOf(propertyEntity.getUserContact().getId());
+            String userId = String.valueOf(propertyEntity.getUserContact().getUser().getId());
             String itemId = String.valueOf(propertyEntity.getId());
             mav.addObject("userId", userId);
             mav.addObject("itemId", itemId);
@@ -161,6 +170,7 @@ public class PropertyController {
         } catch (Exception e) {
             log.error(e.toString());
         }
+
         return mav;
     }
     private List<LocationDto> getLocations() {

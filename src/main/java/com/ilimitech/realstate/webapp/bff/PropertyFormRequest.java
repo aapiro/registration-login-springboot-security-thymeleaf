@@ -1,13 +1,19 @@
 package com.ilimitech.realstate.webapp.bff;
 
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
+@Builder
 @Data
 public class PropertyFormRequest {
+
+    @Nullable
     private int id;
     private String title;
     private String imageUrl;
     private String description;
+    @Nullable
     private boolean active;
     private String type;
     private double price;

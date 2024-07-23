@@ -31,13 +31,23 @@
                         <div class="badge badge-opacity-warning">Ultimo paso subir imagenes</div>
                     </td>
                     <div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
-                        <div id="dropzone">
-                            <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId}}" class="dropzone needsclick" id="demo-upload" method="post">
+                        <div class="row">
+                        <div  class="col-md-4" id="dropzone1">
+                            <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId} + '?principal=true'}" class="dropzone needsclick" id="principal-image" method="post">
                                 <div class="dz-message needsclick">
-                                    <button type="button" class="dz-button">Drop images here or click to upload (max size 5mb).</button>
+                                    <button type="button" class="dz-button">Drop principal image here or click to upload (max size 5mb).</button>
                                     <br/>
                                 </div>
                             </form>
+                        </div>
+                        <div  class="col-md-8" id="dropzone2">
+                            <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId}}" class="dropzone needsclick" id="secondaries-images" method="post">
+                                <div class="dz-message needsclick">
+                                    <button type="button" class="dz-button">Drop the rest of images here or click to upload (max size 5mb).</button>
+                                    <br/>
+                                </div>
+                            </form>
+                        </div>
                         </div>
 
                         <h2 class="text-center">List of Images</h2>
@@ -90,6 +100,8 @@
                         <input type="hidden" id="userId" th:value="${userId}"/>
                         <input type="hidden" id="itemId" th:value="${itemId}"/>
                     </div>
+                    <a th:href="@{/property/new}" class="btn btn-success px-3 d-none d-lg-flex">Add new Property</a>
+                    <a th:href="@{/dashboard}" class="btn btn-primary px-3 d-none d-lg-flex">Save and Finish</a>
                 </div>
             </div>
             <!-- content-wrapper ends -->
@@ -152,10 +164,40 @@
 <script>
     Dropzone.autoDiscover = false;
 
-    $("#demo-upload").dropzone({
+    $("#principal-image").dropzone({
+        maxFiles:1,
+        maxFilesize: 5,
+        acceptedFiles: 'image/*',
         success: function (file, response) {
             toastr.success('File ' + file.name + ' uploaded successfully');
             refreshImageTable();
+        },
+        init: function() {
+            this.on("maxfilesexceeded", function(file) {
+                alert("REMOVING FILES")
+                this.removeAllFiles();
+                this.addFile(file);
+            });
+        }
+    });
+</script>
+<script>
+    Dropzone.autoDiscover = false;
+
+    $("#secondaries-images").dropzone({
+        maxFiles:4,
+        maxFilesize: 5,
+        acceptedFiles: 'image/*',
+        success: function (file, response) {
+            toastr.success('File ' + file.name + ' uploaded successfully');
+            refreshImageTable();
+        },
+        init: function() {
+            this.on("maxfilesexceeded", function(file) {
+                alert("REMOVING FILES")
+                this.removeAllFiles();
+                this.addFile(file);
+            });
         }
     });
 </script>
