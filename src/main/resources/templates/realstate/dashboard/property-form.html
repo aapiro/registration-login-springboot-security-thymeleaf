@@ -45,19 +45,13 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">Titulo</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control"
-                                                               th:field="*{title}"/>
+                                                        <label>
+                                                            <input type="text" class="form-control"
+                                                                   th:field="*{title}"/>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--                                                                <div class="col-md-6">-->
-                                            <!--                                                                    <div class="form-group row">-->
-                                            <!--                                                                        <label class="col-sm-3 col-form-label">Nombre de la via</label>-->
-                                            <!--                                                                        <div class="col-sm-9">-->
-                                            <!--                                                                            <input type="text" class="form-control" th:field="*{addressWayName}"/>-->
-                                            <!--                                                                        </div>-->
-                                            <!--                                                                    </div>-->
-                                            <!--                                                                </div>-->
                                         </div>
 
                                         <div class="col-md-6">
@@ -211,7 +205,7 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
-                                                               th:field="*{houseType}" value="Chalet independiente"
+                                                               th:field="*{propertyType}" value="Chalet independiente"
                                                                checked>
                                                         <label class="form-check-label">Chalet independiente</label>
                                                     </div>
@@ -219,14 +213,14 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
-                                                               th:field="*{houseType}" value="Chalet pareado">
+                                                               th:field="*{propertyType}" value="Chalet pareado">
                                                         <label class="form-check-label">Chalet pareado</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
-                                                               th:field="*{houseType}" value="Chalet adosado">
+                                                               th:field="*{propertyType}" value="Chalet adosado">
                                                         <label class="form-check-label">Chalet adosado</label>
                                                     </div>
                                                 </div>
@@ -238,7 +232,7 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
-                                                               th:field="*{houseCondition}" value="A estrenar"
+                                                               th:field="*{propertyCondition}" value="A estrenar"
                                                                checked>
                                                         <label class="form-check-label">A estrenar</label>
                                                     </div>
@@ -246,14 +240,14 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
-                                                               th:field="*{houseCondition}" value="En buen estado">
+                                                               th:field="*{propertyCondition}" value="En buen estado">
                                                         <label class="form-check-label">En buen estado</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
-                                                               th:field="*{houseCondition}" value="A reformar">
+                                                               th:field="*{propertyCondition}" value="A reformar">
                                                         <label class="form-check-label">A reformar</label>
                                                     </div>
                                                 </div>
