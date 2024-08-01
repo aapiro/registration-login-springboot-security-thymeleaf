@@ -41,7 +41,7 @@
                             </form>
                         </div>
                         <div  class="col-md-8" id="dropzone2">
-                            <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId}}" class="dropzone needsclick" id="secondaries-images" method="post">
+                            <form th:action="@{'/upload/user/' + ${userId} + '/item/' + ${itemId}+ '?principal=false'}" class="dropzone needsclick" id="secondaries-images" method="post">
                                 <div class="dz-message needsclick">
                                     <button type="button" class="dz-button">Drop the rest of images here or click to upload (max size 5mb).</button>
                                     <br/>
@@ -51,11 +51,11 @@
                         </div>
 
                         <h2 class="text-center">List of Images</h2>
-
-                        <div id="imageTableContainer">
+                        <div id="primaryComponent">
                             <table class="table table-hover">
                                 <thead class="thead-light">
                                 <tr>
+                                    <th scope="col"></th>
                                     <th scope="col">Image</th>
                                     <th scope="col">File Name</th>
                                     <th scope="col">Link</th>
@@ -64,17 +64,44 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="image : ${images}">
-                                    <td><img th:src="@{${image.url}}" alt="${image.name}" height="60px" /></td>
+                                    <td><label class="badge badge-success">Principal</label></td>
+                                    <td><img th:src="${image.url}" alt="${image.name}" height="60px" /></td>
                                     <td>[[${image.name}]]</td>
-                                    <td><a th:href="@{${image.url}}">Download</a></td>
+                                    <td><a th:href="${image.url}">Download</a></td>
                                     <td>
-                                        <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${image.name}}" th:fileName="${image.name}" id="btnDelete"
-                                           title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+                                        <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${image.name}}" th:fileName="${image.name}"
+                                           id="btnDelete1" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <div id="secondaryComponent">
+                            <table class="table table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="image : ${images}">
+                                    <td><label class="badge badge-success"></label></td>
+                                    <td><img th:src="${image.url}" alt="${image.name}" height="60px" /></td>
+                                    <td>[[${image.name}]]</td>
+                                    <td><a th:href="${image.url}">Download</a></td>
+                                    <td>
+                                        <a th:href="@{'/images/delete/user/' + ${userId} + '/item/' + ${itemId} +'/file/  ' + ${image.name}}" th:fileName="${image.name}"
+                                           id="btnDelete2" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
 
                     <div class="modal fade text-center" id="confirmModal">
@@ -133,27 +160,54 @@
     // var userId = /*[[${userId}]]*/ '1';
     // var itemId = /*[[${itemId}]]*/ '1';
 
-    function refreshImageTable() {
+    function refreshImageTable1() {
         $.ajax({
-            url: '/imagesAjax/user/' + userId + '/item/' + itemId,
+            url: '/imagesAjax/user/' + userId + '/item/' + itemId + '?principal=true',
             method: 'GET',
             success: function (images) {
-                var tableBody = '';
+                var tableBodyPrincipal = '';
 
                 if (images.length > 0) {
                     images.forEach(image => {
-                        tableBody += '<tr>';
-                        tableBody += '<td><img src="' + image.url + '" alt="' + image.name + '" height="60px" /></td>';
-                        tableBody += '<td>' + image.name + '</td>';
-                        tableBody += '<td><a href="' + image.url + '">Download</a></td>';
-                        tableBody += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId + '/file/' + image.name + '" fileName="' + image.name + '" id="btnDelete" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
-                        tableBody += '</tr>';
+                        tableBodyPrincipal += '<tr>';
+                        tableBodyPrincipal += '<td><label class="badge badge-success">Principal</label></td>';
+                        tableBodyPrincipal += '<td><img src="' + image.url + '" alt="' + image.name + '" height="60px" /></td>';
+                        tableBodyPrincipal += '<td>' + image.name + '</td>';
+                        tableBodyPrincipal += '<td><a href="' + image.url + '">Download</a></td>';
+                        tableBodyPrincipal += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId + '/file/' + image.name +'?principal=true' +'" fileName="' + image.name + '" id="btnDelete1" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
+                        tableBodyPrincipal += '</tr>';
                     });
                 } else {
-                    tableBody = '<tr><td colspan="4">No files found!</td></tr>';
+                    tableBodyPrincipal = '<tr><td colspan="5">No files found!</td></tr>';
                 }
+                $('#primaryComponent tbody').html(tableBodyPrincipal);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching images:', error);
+            }
+        });
+    }
+    function refreshImageTable2() {
+        $.ajax({
+            url: '/imagesAjax/user/' + userId + '/item/' + itemId + '?principal=false',
+            method: 'GET',
+            success: function (images) {
+                var tableBodySecondary = '';
 
-                $('#imageTableContainer tbody').html(tableBody);
+                if (images.length > 0) {
+                    images.forEach(image => {
+                        tableBodySecondary += '<tr>';
+                        tableBodySecondary += '<td><label></label></td>';
+                        tableBodySecondary += '<td><img src="' + image.url + '" alt="' + image.name + '" height="60px" /></td>';
+                        tableBodySecondary += '<td>' + image.name + '</td>';
+                        tableBodySecondary += '<td><a href="' + image.url + '">Download</a></td>';
+                        tableBodySecondary += '<td><a href="/images/delete/user/' + userId + '/item/' + itemId + '/file/' + image.name +'?principal=true' +'" fileName="' + image.name + '" id="btnDelete2" title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a></td>';
+                        tableBodySecondary += '</tr>';
+                    });
+                } else {
+                    tableBodySecondary = '<tr><td colspan="5">No files found!</td></tr>';
+                }
+                $('#secondaryComponent tbody').html(tableBodySecondary);
             },
             error: function (xhr, status, error) {
                 console.error('Error fetching images:', error);
@@ -170,7 +224,7 @@
         acceptedFiles: 'image/*',
         success: function (file, response) {
             toastr.success('File ' + file.name + ' uploaded successfully');
-            refreshImageTable();
+            refreshImageTable1();
         },
         init: function() {
             this.on("maxfilesexceeded", function(file) {
@@ -190,7 +244,7 @@
         acceptedFiles: 'image/*',
         success: function (file, response) {
             toastr.success('File ' + file.name + ' uploaded successfully');
-            refreshImageTable();
+            refreshImageTable2();
         },
         init: function() {
             this.on("maxfilesexceeded", function(file) {

@@ -22,15 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -42,8 +37,7 @@ public class PropertyService {
     private final UserRepository userRepository;
     private final PropertyMapper propertyMapper;
     private final PropertyTypeMapper propertyTypeMapper;
-    private final Path root = Paths.get("./uploaded-images");
-    public static final String DOT = ".";
+    private FilesStorageService filesStorageService;
 
     public List<PropertyDto> getAllProperties() {
         return propertyRepository.findAll()
@@ -100,13 +94,7 @@ public class PropertyService {
         String userName = user.getUserName();
         String message = "";
         if (userDetails.getUsername().equals(userName) && userIdReq.equals(String.valueOf(userId))) {
-            Path path;
-            if (isPrincipalImage) {
-                path = saveFile(Paths.get(root.toString(), "user", "principal", userIdReq, "item", itemId).toString(), file);
-
-            } else {
-                path = saveFile(Paths.get(root.toString(), "user", userIdReq, "item", itemId).toString(), file);
-            }
+            Path path = filesStorageService.saveFileAndGetPath(itemId, file, userIdReq, isPrincipalImage);
             PropertyDto propertyDto = propertyMapper.toDto(propertyEntity);
             propertyDto.getImageEntities().add(ImageDto.builder().name(path.toString()).build());
             byte[] bytes = file.getBytes();
@@ -120,21 +108,5 @@ public class PropertyService {
         }
     }
 
-    private Path saveFile(String uploadDir, MultipartFile file) throws IOException {
-        File dir = new File(uploadDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
 
-        Path path = Paths.get(uploadDir, UUID.randomUUID() + DOT + Objects.requireNonNull(getFileExtension(file)));
-        return Files.write(path, file.getBytes());
-    }
-
-    public String getFileExtension(MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename != null && originalFilename.contains(".")) {
-            return originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-        }
-        return ""; // Retornar una cadena vacía si no hay extensión
-    }
 }

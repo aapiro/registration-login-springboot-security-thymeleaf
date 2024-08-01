@@ -46,7 +46,9 @@ public class SpringSecurity {
                                 /**
                                  * Login Controller begin
                                  */
+                                .requestMatchers("/login").permitAll()
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/register").permitAll()
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/captcha").permitAll()
                                 .requestMatchers("/check-username").permitAll()

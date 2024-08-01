@@ -1,13 +1,11 @@
 package com.ilimitech.realstate.webapp.controller;
 
 import com.ilimitech.realstate.webapp.dto.ImageInfoDto;
-import com.ilimitech.realstate.webapp.repository.PropertyRepository;
 import com.ilimitech.realstate.webapp.service.FilesStorageService;
 import com.ilimitech.realstate.webapp.service.PropertyService;
 import com.ilimitech.realstate.webapp.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,34 +22,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 @AllArgsConstructor
 public class ImageController {
 
-    @Autowired
-    private FilesStorageService storageService;
-    private final Path root = Paths.get("./uploaded-images");
-
-
+    private FilesStorageService filesStorageService;
     private final PropertyService propertyService;
-    private final PropertyRepository propertyRepository;
-//    private final PropertyMapper mapper;
-
 
     @PostMapping("/upload/user/{userId}/item/{itemId}")
     @PreAuthorize("hasRole('APPUSER') or hasRole('ADMIN')")
-    public ResponseEntity<String> handleFileUpload(
+    public ResponseEntity<String> uploadAndSaveImage(
             @PathVariable("userId") @NotNull @Min(1) String userId,
             @PathVariable("itemId") @NotNull @Min(1) String itemId,
             @RequestParam("file") @NotNull MultipartFile file,
@@ -77,15 +64,19 @@ public class ImageController {
     @GetMapping("/imagesAjax/user/{userId}/item/{itemId}")
     public List<ImageInfoDto> getImagesByUserIdAndItemId(
             @PathVariable("userId") String userId,
-            @PathVariable("itemId") String itemId) {
-        return getImageInfoDtos(userId, itemId);
+            @PathVariable("itemId") String itemId,
+            @RequestParam("principal") boolean principalImage){
+        List<ImageInfoDto> imageInfoDtos = filesStorageService.getImageInfoDtos(userId, itemId, principalImage);
+        return imageInfoDtos;
     }
 
     @GetMapping("/images/user/{userId}/item/{itemId}/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String userId,
                                              @PathVariable String itemId,
-                                             @PathVariable String filename) {
-        Resource file = storageService.loadByUserIdAndItemId(root, filename, userId, itemId);
+                                             @PathVariable String filename,
+                                             @RequestParam("principal") boolean isPrincipal) {
+
+        Resource file = filesStorageService.loadByUserIdAndItemId(filename, userId, itemId, isPrincipal);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
@@ -94,23 +85,14 @@ public class ImageController {
     @GetMapping("/images/delete/user/{userId}/item/{itemId}/file/{filename:.+}")
     public String deleteImage(@PathVariable String userId,
                               @PathVariable String itemId,
-                              @PathVariable String filename, Model model) {
-        boolean existed = storageService.delete(root, userId, itemId, filename);
-        List<ImageInfoDto> imageInfoDtos = getImageInfoDtos(userId, itemId);
+                              @PathVariable String filename, Model model,
+                              @RequestParam("principal") boolean principalImage) {
+        boolean existed = filesStorageService.delete(userId, itemId, filename, principalImage);
+        List<ImageInfoDto> imageInfoDtos = filesStorageService.getImageInfoDtos(userId, itemId, principalImage);
         model.addAttribute("images", imageInfoDtos);
         model.addAttribute("userId", userId);
         model.addAttribute("itemId", itemId);
         return "realstate/dashboard/images";
     }
 
-    private List<ImageInfoDto> getImageInfoDtos(String userId, String itemId) {
-        return storageService.loadAllByUserIdAndItemId(root, Long.parseLong(userId), Long.parseLong(itemId))
-                .map(path -> {
-                    String filename = path.getFileName().toString();
-                    String url = MvcUriComponentsBuilder
-                            .fromMethodName(ImageController.class, "getImage", userId, itemId, path.getFileName().toString()).build().toString();
-
-                    return new ImageInfoDto(filename, url);
-                }).collect(Collectors.toList());
-    }
 }

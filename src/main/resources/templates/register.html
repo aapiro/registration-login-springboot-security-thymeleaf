@@ -41,7 +41,7 @@
                     successElement.style.display = "block";
                     emailValid = false;
                     updateRegisterButtonState();
-                    return;
+
                 }
             }
             function checkAvailability(type, value) {
@@ -118,7 +118,7 @@
             </div>
             <div class="card-body">
                 <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                     <div class="form-group mb-3">
                         <label class="form-label">User Name</label>
                         <input class="form-control"

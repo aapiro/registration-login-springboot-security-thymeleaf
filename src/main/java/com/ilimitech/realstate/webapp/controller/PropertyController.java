@@ -16,6 +16,7 @@ import com.ilimitech.realstate.webapp.util.Pair;
 import com.ilimitech.realstate.webapp.util.SearchCriteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -96,6 +97,7 @@ public class PropertyController {
         return mav;
     }
     @GetMapping("/property/{id}")
+    @PreAuthorize("hasRole('APPUSER') or hasRole('ADMIN')")
     public ModelAndView getPropertyDetail(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
 
         ModelAndView mav = new ModelAndView("realstate/frontend/property-detail");
@@ -126,6 +128,7 @@ public class PropertyController {
     }
 
     @GetMapping("/property/new")
+    @PreAuthorize("hasRole('APPUSER') or hasRole('ADMIN')")
     public ModelAndView getFormForAddProperty() {
 
         ModelAndView mav = new ModelAndView("realstate/dashboard/property-form");
@@ -144,6 +147,7 @@ public class PropertyController {
         return mav;
     }
     @PostMapping("/property/save")
+    @PreAuthorize("hasRole('APPUSER') or hasRole('ADMIN')")
     public ModelAndView saveProperty(@Valid @ModelAttribute("propertyReq") PropertyFormRequest propertyFormRequest,
             BindingResult result) {
 
